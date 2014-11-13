@@ -1,0 +1,62 @@
+## Part 1
+
+1. help(turtle.goto)
+   
+   Typing this command in the Python3 interpreter returns a full description of the goto function in the imported turtle library.
+   It contains the possible input arguments or that function, a text description of what the function is doing.
+   And finally several examples.
+
+
+2. turtle.goto
+
+   Typing this will return the address of the function object is stored at. It is not calling the function itself (because we omitted the '()')	
+
+3. turtle.goto(100,100)
+
+   Typing this will trigger the turtle#goto function and run it. It will open the turtle window and will go to x=100, y=100 from x=0, y=0.
+
+
+## UNIX Questions
+
+1. 
+mkdir - Make a new directory
+rmdir - Remove directory
+cd    - Change directory (go in to directory)
+cd ~  - Change to home directory
+cd ~/ - Change to home direcyory 
+
+2. 
+"."  - means staying in the same directory.
+".." - go to one directory up.
+
+3. 
+Relative path - The path defined as related to the current directory.
+Absolute path - The path of the directory/file from the root directory.
+
+4. Wildcards in Shell
+? - One character wildcard 
+* - Multiple characters wildcard
+
+5. 
+& - If you add this to the end of the shell command, it will run the command in the background, which means you can still use the shell terminal.
+
+If you want to move a current process to background you can "CTRL-Z" to suspend, and then type bg in the shell which will resume the suspended job in the background.
+
+6. 
+You can view file permission by the following: ls -l file_name.ext
+
+7. 
+cat  - prints the content of a file
+== EXAMPLE: cat ex1.txt # Prints to terminal the contents of ex1.txt
+
+diff - compares 2 files and find their differences
+== EXAMPLE: diff ex1.txt ex2.txt # Prints to terminal the difference between ex1.txt and ex2.txt
+
+grep - find lines according to a certain pattern
+== EXAMPLE: ls | grep 'ex1' # List the files/directories that contain 'ex1' in their name
+
+cal  - display a calendar
+== EXAMPLE: cal January, 2016 # Show you January month in 2016.
+
+wc   - word counting, lines and more file data
+== EXAMPLE: wc -l HelloTurtle.py # Print the number of lines in HelloTurtle.py

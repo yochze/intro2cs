@@ -1,0 +1,29 @@
+yochze
+201517018
+Yochay Ettun
+
+===========================================
+=  README for ex1: HelloWorld and Turtle  =
+===========================================
+
+Part 1
+Print "Hello World" to the screen using Python.
+
+Part 2
+Using the turtle library and draw geometric shapes in different colors. And adding some text.
+
+Part 3
+Playing with the builtin `help()` function to understand turtle#goto function.
+Understanding what's happening when calling/typing a function and answer the questions in the exercise.
+
+
+
+
+==============================
+=  List of submitted files   =
+==============================
+
+README          This file
+Hello.py        Printing "Hello World"
+HelloTurtle.py  Using the turtle library
+ex1.txt         Answering 3 questions

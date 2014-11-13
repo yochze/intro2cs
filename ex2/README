@@ -1,0 +1,40 @@
+yochze
+201517018
+Yochay Ettun
+
+=============================
+=      README for ex2       =
+=============================
+
+Readme for the second exercise in Intro2CS.
+2 Programs that do simple mathematical calculations.
+
+Usage:
+python3 ex2a.py
+python3 ex2b.py
+
+==================
+=  Description:  =
+==================
+
+ex2b:
+The first program (ex1a.py) can calculate geometric shapes' perimeter and area.
+The initial input from user is 1 to 3 integers that each of them represent a 
+shape (1. rectangle, 2. circle, 3. triangle).
+Then, the program run a area/perimeter formula for each shape,
+based on the chosen shape.
+
+ex2b
+The second program, is a simple calculator.
+It handles 2 integers for input and ask for an operation command from 
+user (+, -, *, / or %)
+For each operation it calculates the answer. The system also handles 
+exceptions like division by 0.
+
+=============================
+=  List of submitted files: =
+=============================
+
+README      This file
+ex2a.py     Calculating geometric shapes' perimeter and area.
+ex2b.py     Simple calculator that calculates +, -, *, / and % operations
