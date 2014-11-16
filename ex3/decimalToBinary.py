@@ -6,7 +6,14 @@
 # #############################################################   
 
 decimal = int(input("give me decimal"))
+binary  = 0
+i = 1
+base = 2
 
-while decimal > n:
-    decimal =
+while decimal > 0:
+    r = decimal % base 
+    binary += i*r
+    i *= 10
+    decimal //= base 
 
+print(binary)
