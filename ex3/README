@@ -1,0 +1,26 @@
+yochze
+201517018
+Yochay Ettun
+
+=============================
+=      README for ex3       =
+=============================
+
+Readme for the third exercise in Intro2CS.
+
+Usage:
+python3 ex2a.py
+python3 ex2b.py
+
+==================
+=  Description:  =
+==================
+
+
+=============================
+=  List of submitted files: =
+=============================
+
+README      This file
+ex2a.py     Calculating geometric shapes' perimeter and area.
+ex2b.py     Simple calculator that calculates +, -, *, / and % operations

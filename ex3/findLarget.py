@@ -8,8 +8,6 @@
 # size. 
 # #############################################################     
 
-
-
 riders_count = int(input("Enter number of riders:"))
 
 largest_hat = [0,0] # In this list the program will save the location of 
@@ -22,7 +20,7 @@ for rider in range(0,riders_count):
     hat_size = int(input("How tall is the hat?")) # Asking for hat height.
 
     if hat_size > largest_hat[1]: 
-        # Triggering condition, that if it's bigger than the current
+        # Triggering condition: If it's bigger than the current
         # tallest hat, save rider and its hat. Otherwise - do nothing.
         largest_hat[1] = hat_size
         largest_hat[0] = rider

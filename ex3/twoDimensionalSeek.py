@@ -10,8 +10,9 @@ forward_or_backward = "forward"
 
 position = "A"
 
-#   A
-# D + B
+#      FORWARD 
+# LEFT    +     RIGHT
+#      BACKWARD
 #   C
 
 while True:
