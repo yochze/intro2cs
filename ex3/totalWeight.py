@@ -6,6 +6,7 @@
 # #############################################################     
 
 total_weight = 0
+
 while True:
     weight = int(input("Insert weights one by one:"))
     if weight == -1:

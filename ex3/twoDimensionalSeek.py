@@ -13,7 +13,6 @@ position = "A"
 #      FORWARD 
 # LEFT    +     RIGHT
 #      BACKWARD
-#   C
 
 while True:
     direction = raw_input("Next turn:")
