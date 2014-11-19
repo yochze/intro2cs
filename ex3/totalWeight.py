@@ -3,6 +3,10 @@
 # WRITER : Yochay Ettun , yochze,  201517018                                    
 # EXERCISE : intro2cs ex3 2014-2015                                             
 # DESCRIPTION:                                                                  
+# Calculating pack weight of Sam and Frodo. Running a loop that 
+# asks input from user. If one of the restriction (overweight etc) 
+# is violated then the program acts accordingly (alert, end program).
+# The loop runs until the ring's weight is entered as input
 # #############################################################     
 
 RING_WEIGHT  = -1
