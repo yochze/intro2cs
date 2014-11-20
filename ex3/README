@@ -88,6 +88,13 @@ and the multiplication of i to 2 and therefor it solves both question.
 
 3. Similar to the previous answer approach, you could easily use the 
 decimalToBinary implementation to compute any base transitions.
+However, the transition should be in 2 stages. First base_source should
+be converted to decimal number, then that decimal number should be converted
+to the target_base number.
+Conversion might work without the decimal "stage" in the middle, but for
+bases that don't share mutual power (for example:2, 4, 8) the middle stage
+is crucial.
+
 Add an input variable for base source and target and change the formulas
 accordingly. 
 
