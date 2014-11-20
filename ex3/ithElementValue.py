@@ -31,4 +31,4 @@ while n < orc_number:
     n += 1                         # Incrementing n to reach orc_number 
 
 # printing the result
-print("The requred number of arrows is " + str(previous))
+print("The required number of arrows is " + str(previous))

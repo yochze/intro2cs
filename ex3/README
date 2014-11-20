@@ -9,18 +9,100 @@ Yochay Ettun
 Readme for the third exercise in Intro2CS.
 
 Usage:
-python3 ex2a.py
-python3 ex2b.py
+python3 findLargest.py
+python3 findSecondSmallest.py
+python3 totalWeight.py
+python3 twoDimensional.py
+python3 ithElementValue.py
+python3 decomposition.py
+python3 binaryToDecimal.py
+python3 decimalToBinary.py
 
 ==================
 =  Description:  =
 ==================
+
+= findLargest:
+
+Program the retrieve number of riders from users and returns
+the position of the rider wearing the tallest hat and his hat 
+size.
+
+= findSecondSmallest:
+
+Program that for each of 10 dancers, it asks the user for his
+age. At the end it prints the position of the 2nd youngest dancer.
+
+= totalWeight:
+
+Calculating pack weight of Sam and Frodo. Running a loop that 
+asks input from user. If one of the restriction (overweight etc) 
+is violated then the program acts accordingly (alert, end program).
+The loop runs until the ring's weight is entered as input
+
+= twoDimensional:
+
+Logging the turns and steps of Sam and Frodo on their way to their
+destiny. Eventually the program will evaluate Gandalf way to the
+same destiny as he can fly directly, almost without turns.
+
+= ithElementValue:
+
+An implementation of Fibbonaci sequence calculation for any 
+input. 
+The program gets an integer from user which will be orc_number, 
+it then computes how many arrows are needed for Legolas to kill
+all those orcs.
+
+= decomposition:
+
+Getting a positive integer from user, where each digit in the number
+represent a different quantity of goblets drank by gimli at a 
+single day. Each digit's position represent the day of drinking that
+quantity.
+In the first loop the program seperates the input number to digits
+stored in list. 
+The second loop, iterates through the genereated list and prints
+the number of goblets drank during each day.
+
+= binaryToDecimal:
+
+Given a binary number , the program calculates its decimal (base 10)
+representation form and prints it.
+
+= decimalToBinary:
+
+Given a decimal binary (base 10) the program calculates the
+number's binary representation.
+
+
+=============================
+=   Answer to question 9    =
+=============================
+1. The main difference between two implementation is that in 
+decimalToBinary I used modulus operation and division over 2 as in 
+binary to decimal we use power of 2's (digit_i * 2^n). 
+
+2. in decimalToBinary to it is enough to just change the base from 2 to 10
+and the multiplication of i to 2 and therefor it solves both question.
+
+3. Similar to the previous answer approach, you could easily use the 
+decimalToBinary implementation to compute any base transitions.
+Add an input variable for base source and target and change the formulas
+accordingly. 
+
 
 
 =============================
 =  List of submitted files: =
 =============================
 
-README      This file
-ex2a.py     Calculating geometric shapes' perimeter and area.
-ex2b.py     Simple calculator that calculates +, -, *, / and % operations
+README                      This file
+findLargest.py              Find maximum in a list
+findSecondSmallest.py       Find second smallest in a list
+totalWeight.py              Summing weights with several conditions
+twoDimensional.py           Calculating quest
+ithElementValue.py          Fibbonaci sequenec in a while loop 
+decomposition.py            decompositing a number
+binaryToDecimal.py          Transforming binary to decimal
+decimalToBinary.py          Transforming decimal to binary

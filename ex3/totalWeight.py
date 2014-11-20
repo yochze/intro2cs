@@ -13,12 +13,13 @@ RING_WEIGHT  = -1
 MAX_WEIGHT   = 100
 total_weight = 0
 
+print("Insert weights one by one:")
 while True:
     # Iterating while input from user is valid and while 
     # user has not entered the break trigger (the ring).
 
     # Receiving weight 
-    weight = int(input("Insert weights one by one:"))
+    weight = int(input())
     if weight == RING_WEIGHT:
         # Ring weight (-1) make the program stop the iteration
         # of receiving input from user, and print the total
@@ -39,7 +40,7 @@ while True:
         # has passed max weight (100), print a warning
         # and end the program.
 
-        print("Overweight! Gandalf will not approve")
+        print("Overweight! Gandalf will not approve.")
         break
 
     else:

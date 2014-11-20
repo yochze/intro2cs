@@ -8,7 +8,7 @@
 # size. 
 # #############################################################     
 
-riders_count = int(input("Enter number of riders:"))
+riders_count = int(input("Enter the number of riders:"))
 
 largest_hat = [0,0] # In this list the program will save the location of 
                     # the rider with largest hat and the largest hat size.

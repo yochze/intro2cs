@@ -44,4 +44,4 @@ for dancer in range(1,11):
         smin_dancer = [dancer_age, dancer]
         
 # Print the position of second youngest dancer, aka Pipin.
-print("Pipin is dancer number " + str(smin_dancer[1]))
+print("Pippin is dancer number " + str(smin_dancer[1]))

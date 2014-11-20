@@ -31,7 +31,7 @@ while True:
     # orientation illustration above.
     
     # Input from user
-    direction = raw_input("Next turn:")
+    direction = str(input("Next turn:"))
 
     if direction == "right":
         # For turning right, asking the number of steps
@@ -39,7 +39,7 @@ while True:
         # and the illustration.
         # incrementing or decrementing right/forward var steps count
         # based on the orientation (if it's real right or perhaps left).
-        steps = int(input("steps: "))
+        steps = int(input("How many steps?"))
 
         if position == "FORWARD":
             position = "RIGHT"
@@ -58,10 +58,10 @@ while True:
             forward += steps
         
     elif direction == "left":
-        # Same logic for the left turn, according to the previous position
-        # it sets the new position and increment/decrement right/forward
-        # based on the orientation.
-        steps = int(input("steps: "))
+        # Same logic for the left turn, according to the previous stored 
+        # position it sets the new position and increment/decrement 
+        # right/forward based on the orientation.
+        steps = int(input("How many steps?"))
 
         if position == "FORWARD":
             position = "LEFT"
@@ -93,8 +93,6 @@ while True:
             # Determining whether printing "forward" or "backward" 
             # according to which of them is larger.
             forward_or_backward = "backward"
-
-        print("Ending")
 
         print('Gandalf should fly ' + str(abs(right)) + ' steps ' 
                 + right_or_left + ' and ' + str(abs(forward))
