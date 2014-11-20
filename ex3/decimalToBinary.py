@@ -8,12 +8,11 @@
 decimal = int(input("give me decimal"))
 binary  = 0
 i = 1
-BASE= 2
 
 while decimal > 0:
-    r = decimal % BASE 
+    r = decimal % 2
     binary += i*r
     i *= 10
-    decimal //= BASE
+    decimal //= 2
 
 print(binary)
