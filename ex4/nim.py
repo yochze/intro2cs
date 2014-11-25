@@ -54,8 +54,8 @@ def get_matches(board, row):
             # Too much matches!
             next
         else:
-            # Update board and print to screen
-           return(matches) 
+            # Return validated matches
+            return(matches) 
 
 
 
