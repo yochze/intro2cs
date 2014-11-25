@@ -77,6 +77,8 @@ elif players == 2:
     player2 = str(input("Name of second player:"))
 
 print_board(board)
+
+
 # Game starts
 while True: 
     if MULTIPLAYER or n%2==1:
@@ -98,12 +100,17 @@ while True:
         print("Computer takes " + str(matches) + " from row " + str(row))
         
     update_board(board, row, matches)
+    print_board(board)
 
     if empty_board(board):
-       print(current_player + " wins")
-       break
+        print(current_player + " wins")
+        play_again = input("Play again? (Y/N)")
+        if play_again == "Y" or play_again == "y":
+            board = list(HEAPS)
+            next
+        else:
+            break
     else:
-       print_board(board)
        n += 1 # increment
 
 
