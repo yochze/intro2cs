@@ -130,9 +130,11 @@ def print_win_message(player, multiplayer):
         Output: Returning nothing, but printing the wanted message from func.
     """
 
-    if not multiplayer and (player != "Computer"):
+    if not multiplayer and (player != None):
         print("You win")
-    else: 
+    elif not multiplayer and (player == None): 
+        print("Computer wins")
+    else:
         print(player + " wins")
 
 
@@ -179,7 +181,7 @@ def play_game(player1, player2=None):
                 # If current turn is for n%2==0 and it is not multiplayer mode
                 # (i.e. computer move) then ask for computer move
                 
-                current_player = "Computer"
+                current_player = None 
                 row, matches = get_computer_move(board) # Get data from
                                                         # the external
                                                         # library

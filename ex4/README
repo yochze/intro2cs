@@ -1,0 +1,27 @@
+yochze
+201517018
+Yochay Ettun
+
+Readme for the forth exercise in Intro2CS.
+2 Programs that do simple mathematical calculations.
+
+Usage:
+python3 nim.py
+
+==================
+=  Description:  =
+==================
+
+An implementation of the Nim game.
+The implemented game allows multiplayer or single player.
+for single player, the program generates automatic computer moves
+from the computer_functions external library.
+For multiplayer selection, the users enter 2 names for different players
+and each play on his turn.
+ 
+=============================
+=  List of submitted files: =
+=============================
+
+README      This file
+nim.py      The nim game python file
