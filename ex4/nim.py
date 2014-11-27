@@ -3,7 +3,13 @@
 # WRITER : Yochay Ettun , yochze,  201517018                                    
 # EXERCISE : intro2cs ex4 2014-2015                                             
 # DESCRIPTION:                                                                  
-#
+# An implementation of the Nim game.
+# The implemented game allows multiplayer or single player.
+# for single player, the program generates automatic computer moves
+# from the computer_functions external library.
+# For multiplayer selection, the users enter 2 names for different players
+# and each play on his turn.
+# 
 # #############################################################  
 
 # Load external library
@@ -67,6 +73,7 @@ def get_row(board):
         row = int(input("Row?"))
         if row not in range(1,len(board)+1):
             # Out of bounds (row does not exist)
+            # Continue ask for valid row number
             next
 
         else:
@@ -76,6 +83,8 @@ def get_row(board):
                 print("That row is empty")
                 next
             else:
+                # Everything is OK. 
+                # You can continue play 
                 break
     return(row)
 
@@ -93,6 +102,7 @@ def get_matches(board, row):
         
         if board[row-1] < matches:
             # Too much matches!
+            # Continue asking for valid matches count
             next
         else:
             # Return validated matches
@@ -104,9 +114,11 @@ def play_again():
         
         Input: Any string (Y/y for another match)
         Output: Boolean """
+    positive_input = ["Y", "y"] # Possible YES answer
 
     play_again = str(input("Play again? (Y/N)"))
-    if play_again == "Y" or play_again == "y":
+    
+    if play_again in positive_input:
         return True
     else: 
         return False
@@ -124,9 +136,19 @@ def print_win_message(player, multiplayer):
         print(player + " wins")
 
 
-# Game flow and process
+# Main loop 
 
 def play_game(player1, player2=None):
+    """ Actual flow of the game, it behaves differently for
+    multiplayer and singleplayer, 
+    The main iteration works until the board is empty
+    and there's an inner condition that sets a new board if the user
+    would like to play another game.
+    
+    Input:  The players of the game (player2 is default to none)
+    Output: The process of the game, for each turn it asks for row number,
+            matches count. Then it updates the board and move on.
+    """
     
     MULTIPLAYER = False if player2 == None else True 
     board = list(HEAPS)
@@ -134,41 +156,62 @@ def play_game(player1, player2=None):
     
     print_board(board)
 
-    while True: 
+    while not empty_board(board): 
         if MULTIPLAYER or (n%2 == 1):
+            # If the match is for multiple players or 
+            # it is the human player's turn in a single player mode:
+
             if n % 2 == 1:
+                # Set the correct current_player
                 current_player = player1
             else:
                 current_player = player2
         
+            # Print helper message for user
             print(current_player + ", it's your turn:")
 
+            # Get rows and matches count from human player
             row = get_row(board) 
             matches = get_matches(board, row) 
 
 
         elif not MULTIPLAYER and (n%2 == 0):
-                # Computer always second at first
+                # If current turn is for n%2==0 and it is not multiplayer mode
+                # (i.e. computer move) then ask for computer move
+                
                 current_player = "Computer"
-                row, matches = get_computer_move(board)
+                row, matches = get_computer_move(board) # Get data from
+                                                        # the external
+                                                        # library
                 row += 1
-                print("Computer takes " + str(matches) + " from row " + str(row))
-            
+                print("Computer takes " + str(matches) + " from row " 
+                        + str(row)) # Print helper of computer move
+        
+        # In any case (no matter who's playing)
+        # Update the board with the new move, and print it to user.
         update_board(board, row, matches)
         print_board(board)
 
         if empty_board(board):
+            # If at the end of the turn the board is empty, print message
+            # and ask for another match.
             print_win_message(current_player, MULTIPLAYER)
             
             if play_again():
-                board = list(HEAPS)
-                print_board(board)
-                next
-            else: 
-                break
+                # In case the user confirmed another match.
 
+                board = list(HEAPS) # New board from computer_functions lib
+                print_board(board)  # Print the board to users
+                next # Continue the loop with the same n, to reserve
+                     # order of the players.
+            else: 
+                # If the user doens't want to continue play, simply
+                # exit from the loop.
+                break
         else:
-           n += 1 # increment
+            # Board is not empty, continue play and 
+            # change turn
+            n += 1 # increment (changes turn)
 
 
 # Program Flow:
@@ -188,4 +231,3 @@ elif players == 2:
     player2     = str(input("Name of second player:"))
     
     play_game(player1, player2)
-
