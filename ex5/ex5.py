@@ -10,7 +10,6 @@
 # Import helpers
 import intro2cs_ex5
 
-
 def dot(A, B):
     """ 
     This function receives two vectors in size of N
@@ -31,15 +30,6 @@ def sign(x):
 
     s = -1.0 if x < 0 else 1.0
     return s
-
-def vector_addition(v1, v2):
-    """
-        A simple vector addition
-    """
-    for i in len(v1):
-       v1[i] += v2[i]
-
-    return v1
 
 def perceptron(data, labels):
     """
@@ -68,10 +58,6 @@ def perceptron(data, labels):
     bias         = 0
     error_rate = 0
     
-    print(labels)
-    print(weights)
-    print(data)
-
     while error_rate < 10*DATA_SIZE:
         for i in range(len(data)):
             if sign(dot(data[i], weights)) == labels[i]:
@@ -85,6 +71,8 @@ def perceptron(data, labels):
                     weights[num] += data[i][num] * labels[i]
 
                 bias -= labels[i]
+
+                print(bias)
                 error_rate += 1
 
                 intro2cs_ex5.show_perceptron(data,labels,weights,bias)
@@ -97,26 +85,51 @@ def perceptron(data, labels):
 
 
 def generalization_error(data, labels, w, b):
-    pass
+    """ Gets a list of M lists in the size of N
+        and 
+    """ 
+    results = []
+    for i in range(len(data)):
+        if sign(dot(data[i], w)-b) == labels[i]:
+            results.append(0)
+        else:
+            results.append(1)
+    
+    return results
+
 
 
 def vector_to_matrix(vec):
-    pass
- 
+    """ Gets a vector in size of 784 and returns 28*28 matrix"""
+    # M_SIZE = math.sqrt(vec) 
+    M_SIZE = 28
+    matrix = []
+    
+    while len(vec) != 0:
+        matrix.append(vec[:M_SIZE])
+        vec = vec[M_SIZE:]
 
 def classifier_4_7(data, labels):
-    pass
+     return perceptron(data, labels)
 
 
 def test_4_7(train_data, train_labels, test_data, test_labels):
     pass
 
+
 # TESTING
 
-data   = intro2cs_ex5.loadtxt('helpers/data.txt')
+# data   = intro2cs_ex5.loadtxt('helpers/data.txt')
 # labels = intro2cs_ex5.loadtxt('helpers/labels_AND.txt')
-labels = intro2cs_ex5.loadtxt('helpers/labels_XOR.txt')
 
-perceptron(data, labels)
+data_47 = intro2cs_ex5.loadtxt('helpers/data_47.txt') 
 
+matrix = vector_to_matrix(data_47[0])
 
+intro2cs_ex5.show_number(matrix)
+
+# weights, bias = perceptron(data, labels)
+
+# results = generalization_error(data, labels, weights, bias)
+
+# print(results)
