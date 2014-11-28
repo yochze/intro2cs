@@ -62,32 +62,38 @@ def perceptron(data, labels):
             b -= b - labels[vector]
     
     """
+    DATA_SIZE    = len(data)
     VECTOR_SIZE  = len(data[0])
     weights      = [0] * VECTOR_SIZE
     bias         = 0
+    error_rate = 0
     
     print(labels)
     print(weights)
     print(data)
 
-    for i in range(len(data)):
-        if sign(dot(data[i], weights)) == labels[i]:
-            # The linear seperator works for data[i]
-            next
-        else:
-            # The linear seperator doesn't work for data[i] and error found.
-            # Updating weights by adding the dot_product to each weight
-            # Updating bias.
-            for num in range(len(data[i])):
-                weights[num] += data[i][num] * labels[i]
+    while error_rate < 10*DATA_SIZE:
+        for i in range(len(data)):
+            if sign(dot(data[i], weights)) == labels[i]:
+                # The linear seperator works for data[i]
+                next
+            else:
+                # The linear seperator doesn't work for data[i] and error found.
+                # Updating weights by adding the dot_product to each weight
+                # Updating bias.
+                for num in range(len(data[i])):
+                    weights[num] += data[i][num] * labels[i]
 
-            bias -= labels[i]
+                bias -= labels[i]
+                error_rate += 1
 
-            intro2cs_ex5.show_perceptron(data,labels,weights,bias)
+                intro2cs_ex5.show_perceptron(data,labels,weights,bias)
 
-    # Returning the final weights and bias (mekadem)
+        # Returning the final weights and bias (mekadem)
 
-    return (weights, bias)
+        return (weights, bias)
+    else:
+        (None, None)
 
 
 def generalization_error(data, labels, w, b):
