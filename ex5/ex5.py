@@ -72,10 +72,9 @@ def perceptron(data, labels):
 
                 bias -= labels[i]
 
-                print(bias)
                 error_rate += 1
 
-                intro2cs_ex5.show_perceptron(data,labels,weights,bias)
+                # intro2cs_ex5.show_perceptron(data,labels,weights,bias)
 
         # Returning the final weights and bias (mekadem)
 
@@ -88,9 +87,15 @@ def generalization_error(data, labels, w, b):
     """ Gets a list of M lists in the size of N
         and 
     """ 
+    # print("THIS IS DATA")
+    # print(len(data))
+    # print(len(data[0]))
+    # print("END")
     results = []
     for i in range(len(data)):
-        if sign(dot(data[i], w)-b) == labels[i]:
+        print(sign(dot(data,w)-b))
+        print(labels[i])
+        if sign(dot(data, w)-b) == labels[i]:
             results.append(0)
         else:
             results.append(1)
@@ -108,25 +113,45 @@ def vector_to_matrix(vec):
     while len(vec) != 0:
         matrix.append(vec[:M_SIZE])
         vec = vec[M_SIZE:]
+    
+    return matrix
 
 def classifier_4_7(data, labels):
-     return perceptron(data, labels)
+    return perceptron(data, labels)
 
 
 def test_4_7(train_data, train_labels, test_data, test_labels):
-    pass
+    w, b = classifier_4_7(train_data, train_labels)
+    errors = generalization_error(test_data, test_labels, w, b) 
 
+    return (w, b, errors)
 
 # TESTING
 
 # data   = intro2cs_ex5.loadtxt('helpers/data.txt')
 # labels = intro2cs_ex5.loadtxt('helpers/labels_AND.txt')
 
-data_47 = intro2cs_ex5.loadtxt('helpers/data_47.txt') 
 
-matrix = vector_to_matrix(data_47[0])
+# Task 4
+data_47   = intro2cs_ex5.loadtxt('helpers/data_47.txt')
+labels_47 = intro2cs_ex5.loadtxt('helpers/labels_47.txt')
 
-intro2cs_ex5.show_number(matrix)
+# Test data
+test_data_47   = intro2cs_ex5.loadtxt('helpers/test_data_47.txt')
+test_labels_47 = intro2cs_ex5.loadtxt('helpers/test_labels_47.txt')
+
+
+w, b = classifier_4_7(data_47, labels_47)
+
+test_4_7(test_data_47, test_labels_47, w, b)
+
+
+
+
+
+# matrix = vector_to_matrix(data_47[0])
+
+# intro2cs_ex5.show_number(matrix)
 
 # weights, bias = perceptron(data, labels)
 
