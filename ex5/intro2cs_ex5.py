@@ -20,7 +20,6 @@ def loadtxt(filename):
     """
     temp = np.loadtxt(filename,delimiter = '\t')
     return temp.tolist()
-    
 
 
 def show_perceptron(X,Y,w,b):
@@ -31,7 +30,7 @@ def show_perceptron(X,Y,w,b):
     b- the seprator bias
     Works only for 2D data - X assumed to be sequence of sequences of size 2
     """
-    if len(X[0]) != 2 or len(w) != 2:
+    if (len(X[0]) != 2 or len(w) != 2):
         print ("Works only for 2d data!")
         return
         

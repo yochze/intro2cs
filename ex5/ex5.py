@@ -62,11 +62,15 @@ def perceptron(data, labels):
             b -= b - labels[vector]
     
     """
-    DATA_SIZE  = len(data)
-    weights    = [0] * DATA_SIZE
-    bias       = 0
+    VECTOR_SIZE  = len(data[0])
+    weights      = [0] * VECTOR_SIZE
+    bias         = 0
+    
+    print(labels)
+    print(weights)
+    print(data)
 
-    for i in range(DATA_SIZE):
+    for i in range(len(data)):
         if sign(dot(data[i], weights)) == labels[i]:
             # The linear seperator works for data[i]
             next
@@ -75,8 +79,6 @@ def perceptron(data, labels):
             # Updating weights by adding the dot_product to each weight
             # Updating bias.
             for num in range(len(data[i])):
-                print(weights[num])
-                print(data[i][num])
                 weights[num] += data[i][num] * labels[i]
 
             bias -= labels[i]
@@ -84,6 +86,7 @@ def perceptron(data, labels):
             intro2cs_ex5.show_perceptron(data,labels,weights,bias)
 
     # Returning the final weights and bias (mekadem)
+
     return (weights, bias)
 
 
@@ -105,7 +108,8 @@ def test_4_7(train_data, train_labels, test_data, test_labels):
 # TESTING
 
 data   = intro2cs_ex5.loadtxt('helpers/data.txt')
-labels = intro2cs_ex5.loadtxt('helpers/labels_AND.txt')
+# labels = intro2cs_ex5.loadtxt('helpers/labels_AND.txt')
+labels = intro2cs_ex5.loadtxt('helpers/labels_XOR.txt')
 
 perceptron(data, labels)
 
