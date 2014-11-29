@@ -56,8 +56,9 @@ def perceptron(data, labels):
     weights      = [0] * VECTOR_SIZE
     bias         = 0
     error_rate   = 0
+    total_errors = 0
     
-    while error_rate < DATA_SIZE*10:
+    while total_errors < DATA_SIZE*10:
         error_rate = 0
         for i in range(DATA_SIZE):
             
@@ -68,6 +69,7 @@ def perceptron(data, labels):
                 # Updating weights by adding the data[i][n] to each weight
                 # Updating bias.
                 error_rate += 1
+                total_errors += 1
                 for num in range(len(weights)):
                     weights[num] +=  (data[i][num] * labels[i])
 
