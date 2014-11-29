@@ -89,16 +89,19 @@ def perceptron(data, labels):
 def generalization_error(data, labels, w, b):
     """ Gets a list of M lists in the size of N
         and 
-    """ 
-    results = []
+    """
+    if w == (None, None):
+        return(None, None, None)
+    else:
+        results = []
 
-    for i in range(len(data)):
-        if sign(dot(data[i], w)-b) == labels[i]:
-            results.append(0)
-        else:
-            results.append(1)
-    
-    return results
+        for i in range(len(data)):
+            if sign(dot(data[i], w)-b) == labels[i]:
+                results.append(0)
+            else:
+                results.append(1)
+        
+        return (w, b, results)
 
 
 
