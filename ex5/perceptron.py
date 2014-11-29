@@ -57,28 +57,32 @@ def perceptron(data, labels):
     bias         = 0
     error_rate   = 0
     
-    while error_rate < 10*DATA_SIZE:
-        for i in range(len(data)):
+    while error_rate < DATA_SIZE*10:
+        error_rate = 0
+        for i in range(DATA_SIZE):
+            
             result = sign(dot(data[i], weights)-bias)
 
             if result != labels[i]:
                 # The linear seperator doesn't work for data[i] and error found.
                 # Updating weights by adding the data[i][n] to each weight
                 # Updating bias.
-                for num in range(len(data[i])):
-                    weights[num] += data[i][num] * labels[i]
+                error_rate += 1
+                for num in range(len(weights)):
+                    weights[num] +=  (data[i][num] * labels[i])
 
                 bias -= labels[i]
+ 
+                # intro2cs_ex5.show_perceptron(data, labels, weights, bias)
+        if error_rate == 0:
+            break
 
-                error_rate += 1
-                # intro2cs_ex5.show_perceptron(data,labels,weights,bias)
-
-        # Returning the final weights and bias (mekadem)
-
-        return (weights, bias)
     else:
-        (None, None)
+       weights = None
+       bias    = None
 
+    # Returning the final weights and bias (mekadem)
+    return (weights, bias)
 
 def generalization_error(data, labels, w, b):
     """ Gets a list of M lists in the size of N
@@ -98,7 +102,6 @@ def generalization_error(data, labels, w, b):
 
 def vector_to_matrix(vec):
     """ Gets a vector in size of 784 and returns 28*28 matrix"""
-    # M_SIZE = math.sqrt(vec) 
     M_SIZE = int((len(vec))**0.5)
     matrix = []
     
@@ -130,35 +133,23 @@ def test_4_7(train_data, train_labels, test_data, test_labels):
 
 
 # Task 4
-data_47   = intro2cs_ex5.loadtxt('helpers/data_47.txt')
-labels_47 = intro2cs_ex5.loadtxt('helpers/labels_47.txt')
+# data_47   = intro2cs_ex5.loadtxt('helpers/data_47.txt')
+# labels_47 = intro2cs_ex5.loadtxt('helpers/labels_47.txt')
 
 # Test data
-test_data_47   = intro2cs_ex5.loadtxt('helpers/test_data_47.txt')
-test_labels_47 = intro2cs_ex5.loadtxt('helpers/test_labels_47.txt')
+# test_data_47   = intro2cs_ex5.loadtxt('helpers/test_data_47.txt')
+# test_labels_47 = intro2cs_ex5.loadtxt('helpers/test_labels_47.txt')
 
 
 # w,b,errors = test_4_7(data_47, labels_47, test_data_47, test_labels_47)
-# print(errors)
 # for i in range(len(errors)):
-#   if errors[i] == 1:
+#    if errors[i] == 1:
 #        print(i)
 #        print("The label is:" + str(test_labels_47[i]) )
 
- #       matrix = vector_to_matrix(test_data_47[i])
+#        # matrix = vector_to_matrix(test_data_47[i])
 
-        # intro2cs_ex5.show_number(matrix)
+#        intro2cs_ex5.show_number(matrix)
 
 # m = vector_to_matrix(w)
 # intro2cs_ex5.show_number(m)
-
-
-# matrix = vector_to_matrix(data_47[0])
-
-# intro2cs_ex5.show_number(matrix)
-
-# weights, bias = perceptron(data, labels)
-
-# results = generalization_error(data, labels, weights, bias)
-
-# print(results)
