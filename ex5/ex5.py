@@ -19,15 +19,14 @@ def dot(A, B):
     dot = 0.0
     for i in range(len(A)):
         dot += A[i] * B[i]
-    
+
     return dot
 
 def sign(x):
     """ A simple sign implementation gets a number and return:
         -1.0 if x < 0
-        1.0  if x > 0 
+        1.0  if x >= 0 
     """
-
     s = -1.0 if x < 0 else 1.0
     return s
 
@@ -56,16 +55,15 @@ def perceptron(data, labels):
     VECTOR_SIZE  = len(data[0])
     weights      = [0] * VECTOR_SIZE
     bias         = 0
-    error_rate = 0
+    error_rate   = 0
     
     while error_rate < 10*DATA_SIZE:
         for i in range(len(data)):
-            if sign(dot(data[i], weights)) == labels[i]:
-                # The linear seperator works for data[i]
-                next
-            else:
+            result = sign(dot(data[i], weights)-bias)
+
+            if result != labels[i]:
                 # The linear seperator doesn't work for data[i] and error found.
-                # Updating weights by adding the dot_product to each weight
+                # Updating weights by adding the data[i][n] to each weight
                 # Updating bias.
                 for num in range(len(data[i])):
                     weights[num] += data[i][num] * labels[i]
@@ -73,7 +71,6 @@ def perceptron(data, labels):
                 bias -= labels[i]
 
                 error_rate += 1
-
                 # intro2cs_ex5.show_perceptron(data,labels,weights,bias)
 
         # Returning the final weights and bias (mekadem)
@@ -87,15 +84,10 @@ def generalization_error(data, labels, w, b):
     """ Gets a list of M lists in the size of N
         and 
     """ 
-    # print("THIS IS DATA")
-    # print(len(data))
-    # print(len(data[0]))
-    # print("END")
     results = []
+
     for i in range(len(data)):
-        print(sign(dot(data,w)-b))
-        print(labels[i])
-        if sign(dot(data, w)-b) == labels[i]:
+        if sign(dot(data[i], w)-b) == labels[i]:
             results.append(0)
         else:
             results.append(1)
@@ -107,7 +99,7 @@ def generalization_error(data, labels, w, b):
 def vector_to_matrix(vec):
     """ Gets a vector in size of 784 and returns 28*28 matrix"""
     # M_SIZE = math.sqrt(vec) 
-    M_SIZE = 28
+    M_SIZE = int((len(vec))**0.5)
     matrix = []
     
     while len(vec) != 0:
@@ -126,10 +118,15 @@ def test_4_7(train_data, train_labels, test_data, test_labels):
 
     return (w, b, errors)
 
-# TESTING
 
-# data   = intro2cs_ex5.loadtxt('helpers/data.txt')
-# labels = intro2cs_ex5.loadtxt('helpers/labels_AND.txt')
+
+# TASKS
+
+# TASK 1:
+# data   = intro2cs_ex5.loadtxt('helpers/data_2D.txt')
+# labels = intro2cs_ex5.loadtxt('helpers/labels_2D_sep.txt')
+
+# perceptron(data, labels)
 
 
 # Task 4
@@ -141,12 +138,19 @@ test_data_47   = intro2cs_ex5.loadtxt('helpers/test_data_47.txt')
 test_labels_47 = intro2cs_ex5.loadtxt('helpers/test_labels_47.txt')
 
 
-w, b = classifier_4_7(data_47, labels_47)
+# w,b,errors = test_4_7(data_47, labels_47, test_data_47, test_labels_47)
+# print(errors)
+# for i in range(len(errors)):
+#   if errors[i] == 1:
+#        print(i)
+#        print("The label is:" + str(test_labels_47[i]) )
 
-test_4_7(test_data_47, test_labels_47, w, b)
+ #       matrix = vector_to_matrix(test_data_47[i])
 
+        # intro2cs_ex5.show_number(matrix)
 
-
+# m = vector_to_matrix(w)
+# intro2cs_ex5.show_number(m)
 
 
 # matrix = vector_to_matrix(data_47[0])
