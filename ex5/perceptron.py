@@ -51,6 +51,7 @@ def perceptron(data, labels):
             b -= b - labels[vector]
     
     """
+
     DATA_SIZE    = len(data)
     VECTOR_SIZE  = len(data[0])
     weights      = [0] * VECTOR_SIZE
@@ -90,18 +91,15 @@ def generalization_error(data, labels, w, b):
     """ Gets a list of M lists in the size of N
         and 
     """
-    if w == (None, None):
-        return(None, None, None)
-    else:
-        results = []
+    results = []
 
-        for i in range(len(data)):
-            if sign(dot(data[i], w)-b) == labels[i]:
-                results.append(0)
-            else:
-                results.append(1)
+    for i in range(len(data)):
+        if sign(dot(data[i], w)-b) == labels[i]:
+            results.append(0)
+        else:
+            results.append(1)
         
-        return (w, b, results)
+    return (results) 
 
 
 
@@ -122,7 +120,10 @@ def classifier_4_7(data, labels):
 
 def test_4_7(train_data, train_labels, test_data, test_labels):
     w, b = classifier_4_7(train_data, train_labels)
-    errors = generalization_error(test_data, test_labels, w, b) 
+    if (w,b) == (None, None)
+        errors = None
+    else:
+        errors = generalization_error(test_data, test_labels, w, b) 
 
     return (w, b, errors)
 
