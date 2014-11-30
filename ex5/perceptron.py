@@ -8,7 +8,7 @@
 #############################################################
 
 # Import helpers
-import intro2cs_ex5
+# import intro2cs_ex5
 
 def dot(A, B):
     """ 
@@ -27,7 +27,13 @@ def sign(x):
         -1.0 if x < 0
         1.0  if x >= 0 
     """
-    s = -1.0 if x < 0 else 1.0
+    if x < 0:
+        s = -1
+    elif x > 0:
+        x = 1
+    else:
+        x = 0
+
     return s
 
 def perceptron(data, labels):
