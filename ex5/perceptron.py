@@ -26,6 +26,7 @@ def sign(x):
     """ A simple sign implementation gets a number and return:
         -1.0 if x < 0
         1.0  if x >= 0 
+        0    if x == 0
     """
     if x < 0:
         s = -1
@@ -45,36 +46,42 @@ def perceptron(data, labels):
     labels[i] is the result of data[i] 
     
     OUTPUT: 
-    list W with size N and bias variable
-
-    pseudocode:
-
-    for vector in data: 
-        if vector*w == labels[vector]
-            next
-        else:
-            w = w[x] + data[vector]*labels[vector]
-            b -= b - labels[vector]
+ 
     
     """
 
-    DATA_SIZE    = len(data)
-    VECTOR_SIZE  = len(data[0])
-    weights      = [0] * VECTOR_SIZE
-    bias         = 0
-    error_rate   = 0
-    total_errors = 0
+    DATA_SIZE    = len(data)    # Set the data size (size of list)
+    VECTOR_SIZE  = len(data[0]) # Set the data's vector size 
+                                # (list of list size)
+
+    RUN_LIMIT    = DATA_SIZE*10 # Set the run limit of the while loop (below)
+                                # to 10 times the DATA_SIZE
+
+    weights      = [0] * VECTOR_SIZE # Set the weights vector to the same size
+                                     # as input data's vectors.
+
+    bias         = 0 # Initialize bias variable
+    error_rate, total_errors   = 0, 0 # Initialize errors count variables
     
-    while total_errors < DATA_SIZE*10:
-        error_rate = 0
+    while total_errors < RUN_LIMIT:
+        # The main perceptron iteration.
+        
+        error_rate = 0 # 
         for i in range(DATA_SIZE):
             
-            result = sign(dot(data[i], weights)-bias)
+            result = sign(dot(data[i], weights)-bias) # Calculate DOT of 
+                                                      # data[i] AND weights and
+                                                      # get either -1 or 1
+                                                      # based on sign func
 
             if result != labels[i]:
-                # The linear seperator doesn't work for data[i] and error found.
-                # Updating weights by adding the data[i][n] to each weight
-                # Updating bias.
+                # Compare the result with according labels[i]
+                # if they are equal, means the current linear seperator works
+                # for the couple. If they are different, the linear seperator 
+                # doesn't work for data[i] and error needs to be counted.
+                # Also, updating weights by adding the data[i][n] the
+                # weights vector, and updating bias by substracting the 
+                # matching label.
                 error_rate += 1
                 total_errors += 1
                 for num in range(len(weights)):
@@ -84,6 +91,7 @@ def perceptron(data, labels):
  
                 # intro2cs_ex5.show_perceptron(data, labels, weights, bias)
         if error_rate == 0:
+
             break
 
     else:
@@ -110,7 +118,7 @@ def generalization_error(data, labels, w, b):
 
 
 def vector_to_matrix(vec):
-    """ Gets a vector in size of 784 and returns 28*28 matrix"""
+    """ Gets a vector in size of x^2 and returns x*x matrix"""
     M_SIZE = int((len(vec))**0.5)
     matrix = []
     
