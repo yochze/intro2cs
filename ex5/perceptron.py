@@ -54,19 +54,21 @@ def perceptron(data, labels):
     VECTOR_SIZE  = len(data[0]) # Set the data's vector size 
                                 # (list of list size)
 
-    RUN_LIMIT    = DATA_SIZE*10 # Set the run limit of the while loop (below)
+    UPDATES_LIMIT = DATA_SIZE*10 # Set the run limit of the while loop (below)
                                 # to 10 times the DATA_SIZE
 
-    weights      = [0] * VECTOR_SIZE # Set the weights vector to the same size
+    weights       = [0] * VECTOR_SIZE # Set the weights vector to the same size
                                      # as input data's vectors.
 
-    bias         = 0 # Initialize bias variable
-    error_rate, total_errors   = 0, 0 # Initialize errors count variables
+    bias           = 0 # Initialize bias variable
+    total_updates  = 0 # Initialize errors count variables
+    no_errors = False
     
-    while total_errors < RUN_LIMIT:
-        # The main perceptron iteration.
+    while total_updates < UPDATES_LIMIT and not no_errors:
+    # The main perceptron iteration.
         
-        # error_rate = 0 # Initializing 
+        no_errors = True # Initializing 
+
         for i in range(DATA_SIZE):
             
             result = sign(dot(data[i], weights)-bias) # Calculate DOT of 
@@ -82,24 +84,19 @@ def perceptron(data, labels):
                 # Also, updating weights by adding the data[i][n] the
                 # weights vector, and updating bias by substracting the 
                 # matching label.
-                error_rate += 1
-                total_errors += 1
+                total_updates    += 1 
+                no_errors         = False 
+
+                # Updating weights and bias
                 for num in range(len(weights)):
                     weights[num] +=  (data[i][num] * labels[i])
-
                 bias -= labels[i]
  
-                # intro2cs_ex5.show_perceptron(data, labels, weights, bias)
-        if error_rate == 0:
-
-            break
+        if no_errors:
+            return(weights, bias)
 
     else:
-       weights = None
-       bias    = None
-
-    # Returning the final weights and bias (mekadem)
-    return (weights, bias)
+        return(None, None)
 
 def generalization_error(data, labels, w, b):
     """ Gets a list of M lists in the size of N
