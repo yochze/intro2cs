@@ -66,7 +66,7 @@ def perceptron(data, labels):
     while total_errors < RUN_LIMIT:
         # The main perceptron iteration.
         
-        error_rate = 0 # 
+        # error_rate = 0 # Initializing 
         for i in range(DATA_SIZE):
             
             result = sign(dot(data[i], weights)-bias) # Calculate DOT of 
