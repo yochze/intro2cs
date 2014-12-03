@@ -61,7 +61,7 @@ def perceptron(data, labels):
                                      # as input data's vectors.
 
     bias           = 0 # Initialize bias variable
-    total_updates  = 0 # Initialize errors count variables
+    total_updates  = 0 # Initialize updates/errors count variables
     no_errors = False
     
     while total_updates < UPDATES_LIMIT and not no_errors:
