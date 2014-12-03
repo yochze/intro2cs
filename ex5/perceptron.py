@@ -31,9 +31,9 @@ def sign(x):
     if x < 0:
         s = -1
     elif x > 0:
-        s = 1
+        x = 1
     else:
-        s = 0
+        x = 0
 
     return s
 
@@ -63,7 +63,7 @@ def perceptron(data, labels):
     bias         = 0 # Initialize bias variable
     error_rate, total_errors   = 0, 0 # Initialize errors count variables
     
-    while (total_errors < RUN_LIMIT) or (error_rate == 0):
+    while total_errors < RUN_LIMIT:
         # The main perceptron iteration.
         
         error_rate = 0 # 
@@ -90,6 +90,10 @@ def perceptron(data, labels):
                 bias -= labels[i]
  
                 # intro2cs_ex5.show_perceptron(data, labels, weights, bias)
+        if error_rate == 0:
+
+            break
+
     else:
        weights = None
        bias    = None
@@ -130,7 +134,7 @@ def classifier_4_7(data, labels):
 
 def test_4_7(train_data, train_labels, test_data, test_labels):
     w, b = classifier_4_7(train_data, train_labels)
-    if (w,b) == (None, None):
+    if (w,b) == (None, None)
         errors = None
     else:
         errors = generalization_error(test_data, test_labels, w, b) 
@@ -156,7 +160,6 @@ def test_4_7(train_data, train_labels, test_data, test_labels):
 # test_data_47   = intro2cs_ex5.loadtxt('helpers/test_data_47.txt')
 # test_labels_47 = intro2cs_ex5.loadtxt('helpers/test_labels_47.txt')
 
-# perceptron(data, labels)
 
 # w,b,errors = test_4_7(data_47, labels_47, test_data_47, test_labels_47)
 # for i in range(len(errors)):
