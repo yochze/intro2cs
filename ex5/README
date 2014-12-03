@@ -32,7 +32,12 @@ But it seems that the weights and bias (generated from the perceptron)
 were wrong when classifying this digit.
 
 When showing the image of the classifier (vector W) it looks that the
-area that it covers is 
+area that it covers is not covering the entire possibilities of the digit 4.
+If you look closely on the weights image, it seems like there's a black and
+white spots that don't match and basically contradicts Digit #57 pixels.
+
+With more training data and a variety of 4,7 digits forms,
+it will increase the odds of computing correctly the digit.
 
 Digit no. 118 
 The image shows the digit 4 and the matching label says it's 7 
@@ -55,7 +60,7 @@ My first thought of expanding the perceptron algorithm to support this
 kind of case, was to simply use the ellipse formula as a classifier.
 Which means, if it a data point is outside of the ellipse but should be in
 the radius of the ellipse will update and expand to contain that data point.
-sign((x/a + y/b)-1).
+sign(((x/a + y/b)-1)-b) where a,b are weights.
 
 
 This solution would work specifically for case above. Otherwise it won't work.
@@ -65,7 +70,7 @@ For example for this 1D data there is no simple classification:
 
 [-] [*] [-] [*]
 
-Think of [-] and [*] as data points from two different sets.
+(Think of [-] and [*] as data points from two different sets.)
 
 My intuition to solve this problem was to create a transformation that
 converts 2D data into 3D data and then having a *linear* classifier seperating

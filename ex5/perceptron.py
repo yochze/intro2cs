@@ -7,9 +7,6 @@
 #
 #############################################################
 
-# Import helpers
-import intro2cs_ex5
-
 def dot(A, B):
     """ 
     This function receives two vectors in size of N
@@ -189,36 +186,3 @@ def test_4_7(train_data, train_labels, test_data, test_labels):
         errors = generalization_error(test_data, test_labels, w, b) 
 
     return (w, b, errors)
-
-
-
-# TASKS
-
-# TASK 1:
-# data   = intro2cs_ex5.loadtxt('helpers/data_2D.txt')
-# labels = intro2cs_ex5.loadtxt('helpers/labels_2D_sep.txt')
-
-# perceptron(data, labels)
-
-
-# Task 4
-data_47   = intro2cs_ex5.loadtxt('helpers/data_47.txt')
-labels_47 = intro2cs_ex5.loadtxt('helpers/labels_47.txt')
-
-# Test data
-test_data_47   = intro2cs_ex5.loadtxt('helpers/test_data_47.txt')
-test_labels_47 = intro2cs_ex5.loadtxt('helpers/test_labels_47.txt')
-
-
-w,b,errors = test_4_7(data_47, labels_47, test_data_47, test_labels_47)
-for i in range(len(errors)):
-    if errors[i] == 1:
-        print(i)
-        print("The label is:" + str(test_labels_47[i]) )
-
-        matrix = vector_to_matrix(test_data_47[i])
-
-        intro2cs_ex5.show_number(matrix)
-
-m = vector_to_matrix(w)
-intro2cs_ex5.show_number(m)
