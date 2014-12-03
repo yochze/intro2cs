@@ -31,9 +31,9 @@ def sign(x):
     if x < 0:
         s = -1
     elif x > 0:
-        x = 1
+        s = 1
     else:
-        x = 0
+        s = 0
 
     return s
 
@@ -134,7 +134,7 @@ def classifier_4_7(data, labels):
 
 def test_4_7(train_data, train_labels, test_data, test_labels):
     w, b = classifier_4_7(train_data, train_labels)
-    if (w,b) == (None, None)
+    if (w,b) == (None, None):
         errors = None
     else:
         errors = generalization_error(test_data, test_labels, w, b) 
