@@ -87,8 +87,8 @@ def perceptron(data, labels):
             # Iterating through the input size (both labels and data)
             
             result = sign(dot(data[i], weights)-bias) # Calculate DOT of 
-                                                      # data[i] AND weights and
-                                                      # get either -1 or 1
+                                                      # data[i] AND weights 
+                                                      # and get either -1 or 1
                                                       # based on sign func
 
             if result != labels[i]:
