@@ -1,0 +1,84 @@
+yochze
+201517018
+Yochay Ettun
+
+Readme for the fifth exercise in Intro2CS.
+An implementation of the perceptron algorithm.
+Working with training & testing data.
+
+Usage:
+python3 perceptron.py
+
+==================
+=  Description:  =
+==================
+An implentation of the perceptron machine learning algorithm
+while using helper functions like sign, dot_product etc.
+
+
+==================
+=  Question  5A  =
+==================
+According to the instructions, the labels data file contains
+1  - for the number 4
+-1 - for the number 7
+
+While running the test data after using the training data, I received 2
+mismatches in my results. 
+
+Digit no. 57
+The image shows the digit 4 and the matching label confirms.
+But it seems that the weights and bias (generated from the perceptron)
+were wrong when classifying this digit.
+
+When showing the image of the classifier (vector W) it looks that the
+area that it covers is 
+
+Digit no. 118 
+The image shows the digit 4 and the matching label says it's 7 
+So the error for that digit happens becaues the labeling is incorrect.
+
+==================
+=  Question  6   =
+==================
+
+let A,B sets of two sets to be classified
+
+The perceptron algorithm is designed to find a linear classifier.
+The data_bonus & labels_bonus present an ellipse of set A bounded by
+data points of set B.
+
+This representation clearly cannot be linearly classified, that's why the
+current design of the algorithm won't be useful.
+
+My first thought of expanding the perceptron algorithm to support this
+kind of case, was to simply use the ellipse formula as a classifier.
+Which means, if it a data point is outside of the ellipse but should be in
+the radius of the ellipse will update and expand to contain that data point.
+sign((x/a + y/b)-1).
+
+
+This solution would work specifically for case above. Otherwise it won't work.
+There are many types of data that can be classified, but not necasserily
+by linear classifier or ellipse classifier.
+For example for this 1D data there is no simple classification:
+
+[-] [*] [-] [*]
+
+Think of [-] and [*] as data points from two different sets.
+
+My intuition to solve this problem was to create a transformation that
+converts 2D data into 3D data and then having a *linear* classifier seperating
+the data using the same perceptron technique. 
+For 2D into 3D that linear classifier is simply a hyperplane.
+
+To conclude, for the specific ellipse problem the ellipse area formula
+would work, but the problem is more deeper, and I think a transformation
+would be a good solution.
+
+=============================
+=  List of submitted files: =
+=============================
+
+README         This file
+perceptron.py  The perceptron algorithm
