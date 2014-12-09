@@ -1,6 +1,0 @@
-16.11.14
-
-Intro to CS: Intro to ML
-
-Perception Algorithm:
-
