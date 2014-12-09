@@ -7,9 +7,15 @@ def draw_tree(length=200):
     # length is number of pixel 
     deg = 30
 
+    if not length < 10:
+        turtle.forward(length)
+        turtle.right(deg)
+        draw_tree(length*0.6)
 
-    if branches_count == length*0.6 :
-        DONE
-    else:
-        draw_branches
+        turtle.left(deg*2)
+        draw_tree(length*0.6)
 
+        turtle.right(deg)
+        turtle.backward(length)
+
+draw_tree()
