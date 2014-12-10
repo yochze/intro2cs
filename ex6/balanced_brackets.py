@@ -114,13 +114,12 @@ def violated_balanced(s):
         return violated_helper(s, 0, 0)
 
 def match_brackets(s):
-    mylist = []
+    mylist = [0] * len(s)
     n = 0
     if n == len(s):
         return mylist
     else:
-        return matcher
-
+       mylist[n] 
 
     return mylist
 
