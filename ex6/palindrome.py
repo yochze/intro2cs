@@ -48,9 +48,9 @@ def is_palindrome_2(s, i, j):
         INPUT: Any string, i and j integers in the range of len(string).
         OUTPUT: True if palindrome, otherwise False
     """
-    if i > j or len(s) == 0:
+    if i == j or i == j+1 or len(s) == 0:
         # Base case:
-        # If smaller index (by definition) is bigger than larger index
+        # If smaller index (by definition) is bigger than larger index by 1
         # Or the length of the string is 0 , it means that the string
         # has passed all iteration and is palindrome. return true.
         return True

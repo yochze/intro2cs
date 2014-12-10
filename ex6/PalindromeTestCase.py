@@ -66,5 +66,9 @@ class PalindromeTestCase(unittest.TestCase):
                          "returned true for bubbles, 1, 3")
         self.assertTrue(palindrome.is_palindrome_2("143", 2, 1),
                         "returned false for 143")
+        self.assertFalse(palindrome.is_palindrome_2("143", 2, 0),
+                        "returned true for 143")
+
+
 if __name__ == '__main__':
     unittest.main()
