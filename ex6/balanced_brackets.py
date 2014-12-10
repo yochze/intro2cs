@@ -114,43 +114,52 @@ def violated_balanced(s):
         return violated_helper(s, 0, 0)
 
 def match_brackets(s):
-    mylist = [0] * len(s)
-    n = 0
-    if n == len(s):
+    mylist = []
+    
+    return matcher(s, mylist, 0) 
+
+
+def matcher(s, mylist, n):
+    if len(s)-1 != n:
+        if s[n] == "(":
+            res = find_closure(s[n:]) - n
+            print("closure: "  + str(find_closure(s[n:])) + " -  "+ str(n) )
+
+        elif s[n] == ")":
+            res =  n - find_opener(s[:n]) 
+            print("opener: " + str(n) + " - " + str(find_opener(s[:n])))
+
+        else:
+            res = 0
+
+        mylist.append(res) 
+        return matcher(s, mylist, n+1)
+
+    else:
         return mylist
-    else:
-       mylist[n] 
 
-    return mylist
-
-
-def matcher(s):
-
-    if s[0] == "(":
-        res = find_closure(s)
-    elif s[0] == ")":
-        res = find_opener(s)
-    else:
-        res = 0
-
-    return res
-
-
+        
 def find_opener(s):
     if not is_balanced(s[1:]):
-        return(len(s)-2)
+        return(len(s)-1)
     else:
-        print(s[1:])
         return find_opener(s[1:])
 
 
 
 def find_closure(s):
     if not is_balanced(s[:-1]):
-        return(len(s)-2) 
+        return(len(s)-1)
     else:
         return find_closure(s[:-1])
 
 print(find_opener("asd(sdf)"))
 print(find_closure("(sdf)s"))
 print(find_closure("(aasdfsdf)asdfsdf"))
+
+
+
+print(match_brackets("ss(aasdfsdf)asd()()fsdf"))
+print(len("ss(aasdfsdf)as()dfsdf"))
+print(match_brackets("(()())")) #  [5, 1, -1, 1, -1, -5]
+print(match_brackets("()"))
