@@ -115,21 +115,43 @@ def violated_balanced(s):
 
 def match_brackets(s):
     mylist = []
+    n = 0
+    if n == len(s):
+        return mylist
+    else:
+        return matcher
+
 
     return mylist
 
 
+def matcher(s):
+
+    if s[0] == "(":
+        res = find_closure(s)
+    elif s[0] == ")":
+        res = find_opener(s)
+    else:
+        res = 0
+
+    return res
+
 
 def find_opener(s):
-    if is_balanced(s[1:]):
-        return(len(s))
+    if not is_balanced(s[1:]):
+        return(len(s)-2)
     else:
-        find_opener(s[1:])
+        print(s[1:])
+        return find_opener(s[1:])
+
+
 
 def find_closure(s):
-    if is_balanced(s[:1]):
-        return(len(s))
+    if not is_balanced(s[:-1]):
+        return(len(s)-2) 
     else:
-        find_closure(s[:1])
+        return find_closure(s[:-1])
 
-print(find_opener("ahadf(sdf)"))
+print(find_opener("asd(sdf)"))
+print(find_closure("(sdf)s"))
+print(find_closure("(aasdfsdf)asdfsdf"))
