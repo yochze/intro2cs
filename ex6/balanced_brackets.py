@@ -114,52 +114,40 @@ def violated_balanced(s):
         return violated_helper(s, 0, 0)
 
 def match_brackets(s):
-    mylist = []
+    mylist = [0] * len(s)
+    templist = []
     
-    return matcher(s, mylist, 0) 
+    if is_balanced(s):
+        return matcher(s, templist, mylist, 0) 
+    else:
+        return []
 
 
-def matcher(s, mylist, n):
-    if len(s)-1 != n:
+def matcher(s, templist, mylist, n):
+    if n < len(s):
         if s[n] == "(":
-            res = find_closure(s[n:]) - n
-            print("closure: "  + str(find_closure(s[n:])) + " -  "+ str(n) )
+            templist.append(n)
+            return matcher(s, templist, mylist, n+1)
 
         elif s[n] == ")":
-            res =  n - find_opener(s[:n]) 
-            print("opener: " + str(n) + " - " + str(find_opener(s[:n])))
+            i = templist[-1]
+            templist.pop()
+            mylist[i] = n - i
+            mylist[n] = i - n 
+            return matcher(s, templist, mylist, n+1)
 
         else:
-            res = 0
-
-        mylist.append(res) 
-        return matcher(s, mylist, n+1)
-
+            return matcher(s, templist, mylist, n+1)
     else:
         return mylist
 
-        
-def find_opener(s):
-    if not is_balanced(s[1:]):
-        return(len(s)-1)
-    else:
-        return find_opener(s[1:])
+ 
 
-
-
-def find_closure(s):
-    if not is_balanced(s[:-1]):
-        return(len(s)-1)
-    else:
-        return find_closure(s[:-1])
-
-print(find_opener("asd(sdf)"))
-print(find_closure("(sdf)s"))
-print(find_closure("(aasdfsdf)asdfsdf"))
-
-
-
-print(match_brackets("ss(aasdfsdf)asd()()fsdf"))
-print(len("ss(aasdfsdf)as()dfsdf"))
-print(match_brackets("(()())")) #  [5, 1, -1, 1, -1, -5]
-print(match_brackets("()"))
+# print(match_brackets("ss(aasdfsdf)asd()()fsdf"))
+# print(len("ss(aasdfsdf)as()dfsdf"))
+# print(match_brackets("(()())")) #  [5, 1, -1, 1, -1, -5]
+# print("correct:  [5, 1, -1, 1, -1, -5]")
+# print(match_brackets("()"))
+#print(match_brackets("(()())")) #  [5, 1, -1, 1, -1, -5]
+#print(match_brackets("(b)(aa)")) # 2,0,-2,3,0,0,-3 
+# print("correct:  [5, 1, -1, 1, -1, -5]")
