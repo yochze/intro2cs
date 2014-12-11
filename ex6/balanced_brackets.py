@@ -138,26 +138,37 @@ def matcher(s, templist, mylist, n):
     """
     The recursive function that eventually returns a list of required elements
     (0 if not parenthesis, or index number of matching parenthesis)
+
+    INPUT:  s        == The string
+            templist == list with opened parenthesis indexes
+            mylist   == The output containing 0 or index of matching 
+                        parenthesis.
+            n        == number of iteration (i.e. the index)
+
+    OUTPUT: either the recursive output. Or the mylist list with the final
+            output.
+
     """
+    left_p, right_p  = "(", ")" # Set parenthesis to variables.
     if n < len(s):
         # Base Case:
         # If n (number of recursive iterations) is equal to the length of
         # the input string, stop and return the list.
         # Otherwise, keep iterating through the string.
-        if s[n] == "(":
+        if s[n] == left_p:
             # If it's an open parenthsis, append the index number to templist
             # and call the function again (recursively).
             templist.append(n)
             return matcher(s, templist, mylist, n+1)
 
-        elif s[n] == ")":
+        elif s[n] == right_p:
             # If it's a closing parenthesis then it is matching the 
             # last opened parenthesis that was stored in the list.
             # therefore, remove the item from the templist
             # and store difference (i-n/n-i) in the appropriate index.
             i = templist[-1]
             templist.pop() # Remove last element from list.
-            mylist[i] = n - i 
+            mylist[i] = n - i # Store difference of indexes in list
             mylist[n] = i - n 
             return matcher(s, templist, mylist, n+1) # Call the function 
                                                      # again on the next idx.
