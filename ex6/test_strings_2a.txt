@@ -1,0 +1,11 @@
+1(4)1) # Error
+()(()) # Good
+()(() # Error
+((()) # Error
+(")(())")) #Error
+() # Good
+a(b)) # Error
+a(b) # Good
+())b(( # Error
+a(basjdf)() # good
+a(ba(sjdf)() # good

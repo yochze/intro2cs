@@ -1,0 +1,56 @@
+yochze
+201517018
+Yochay Ettun
+
+Readme for the sixth exercise in Intro2CS.
+An implementation of several recursion functions.
+
+Usage:
+python3 palindrome.py
+python3 balanced_brackets.py
+python3 y_tree.py # Default is set to 200.
+
+
+==================
+=  Description:  =
+==================
+
+Palindrome:
+
+wo recursive functions to determine whether a string is palindrome
+or not.
+The first gets a full string and returns boolean according to the 
+string palindromically.
+The second program gets a string and two indexes representing a 
+substring in the original string. Then it tests if the substring
+is palindrome or not. return a boolean accordingly.
+
+
+Balanced Brackets:
+
+Several functions to determine if a string has a balanced
+structure of parenthesis.
+Also functions to determine what is wrong in an unbalanced
+string. And another function to map the parenthesis and chars
+in a balanced string.
+
+
+YTree:
+
+A recursive function that uses the turtle external library to
+draw a binary tree in the size of the user input (or default: 200).
+
+=============================
+=  List of submitted files: =
+=============================
+
+README                  This file
+palindrome.py           Palindrome strings functions 
+balanced_brackets.py    Balanced brackets functions 
+y_tree.py               The drawing of a binary tree. 
+test_strings_2a.txt     Test data for question 2, a.
+test_strings_2b.txt     Test data for question 2, b.
+test_strings_2c.txt     Test data for question 2, c.
+
+
+

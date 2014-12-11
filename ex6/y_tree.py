@@ -10,6 +10,13 @@
 import turtle # Library for graphcics
 
 def draw_tree(length=200):
+    """
+    A recursive function that uses the turtle external library to
+    draw a binary tree in the size of the user input (or default: 200).
+
+    The flow of the function that it first draw a straight line,
+    the right side branches and then left side branches.
+    """
     # length is number of pixel 
     deg = 30 # degrees of each branch (left, right)
 

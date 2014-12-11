@@ -3,7 +3,11 @@
 # WRITER : Yochay Ettun , yochze
 # EXERCISE : intro2cs ex6
 # DESCRIPTION:
-#
+# Several functions to determine if a string has a balanced
+# structure of parenthesis.
+# Also functions to determine what is wrong in an unbalanced
+# string. And another function to map the parenthesis and chars
+# in a balanced string.
 #############################################################
 
 def is_balanced(s):
@@ -39,12 +43,6 @@ def is_balanced(s):
     else:
         return False
         
-# print(is_balanced("a(b))")) # Error
-# print(is_balanced("a(b)")) # Good
-# print(is_balanced("())b((")) # Error
-# print(is_balanced("a(basjdf)()")) # good
-# print(is_balanced("a(ba(sjdf)()")) # good
-
 
 def violated_helper(s, ec, n):
     """ 
@@ -114,40 +112,57 @@ def violated_balanced(s):
         return violated_helper(s, 0, 0)
 
 def match_brackets(s):
-    mylist = [0] * len(s)
-    templist = []
-    
+    """
+    Wrapper function to call matcher recursive function.
+    The matcher function is called only if the input string is 
+    a balanced parenthesis string.
+
+    INPUT:  Any string.
+    OUTPUT: An empty list if string is not balanced. Or:
+            A list in size of string, containing:
+            0 if not "(" or ")"
+            number of matching parenthesis index.
+    """
     if is_balanced(s):
-        return matcher(s, templist, mylist, 0) 
+        # Run recursive function if the string is balanced.
+        mylist = [0] * len(s) # prefill the output list with 0s
+        templist = [] # temp list will behave as stack inside the recursive
+                      # function.
+
+        return matcher(s, templist, mylist, 0)  # Return and  call recursion
     else:
-        return []
+        return [] # String is not balanced,  return empty list.
 
 
 def matcher(s, templist, mylist, n):
+    """
+    The recursive function that eventually returns a list of required elements
+    (0 if not parenthesis, or index number of matching parenthesis)
+    """
     if n < len(s):
+        # Base Case:
+        # If n (number of recursive iterations) is equal to the length of
+        # the input string, stop and return the list.
+        # Otherwise, keep iterating through the string.
         if s[n] == "(":
+            # If it's an open parenthsis, append the index number to templist
+            # and call the function again (recursively).
             templist.append(n)
             return matcher(s, templist, mylist, n+1)
 
         elif s[n] == ")":
+            # If it's a closing parenthesis then it is matching the 
+            # last opened parenthesis that was stored in the list.
+            # therefore, remove the item from the templist
+            # and store difference (i-n/n-i) in the appropriate index.
             i = templist[-1]
-            templist.pop()
-            mylist[i] = n - i
+            templist.pop() # Remove last element from list.
+            mylist[i] = n - i 
             mylist[n] = i - n 
-            return matcher(s, templist, mylist, n+1)
+            return matcher(s, templist, mylist, n+1) # Call the function 
+                                                     # again on the next idx.
 
         else:
             return matcher(s, templist, mylist, n+1)
     else:
         return mylist
-
- 
-
-# print(match_brackets("ss(aasdfsdf)asd()()fsdf"))
-# print(len("ss(aasdfsdf)as()dfsdf"))
-# print(match_brackets("(()())")) #  [5, 1, -1, 1, -1, -5]
-# print("correct:  [5, 1, -1, 1, -1, -5]")
-# print(match_brackets("()"))
-#print(match_brackets("(()())")) #  [5, 1, -1, 1, -1, -5]
-#print(match_brackets("(b)(aa)")) # 2,0,-2,3,0,0,-3 
-# print("correct:  [5, 1, -1, 1, -1, -5]")
