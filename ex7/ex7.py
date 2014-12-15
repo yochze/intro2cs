@@ -2,11 +2,42 @@ from SolveLinear3 import solve_linear_3
 
 
 def is_point_inside_triangle(point, v1, v2, v3):
-    pass
+    """
+    This function check if a given point is in the area of the 
+    triangle.
+
+    point == tuple of 2 numbers, i.e (0,3)
+    v1,v2,v3 are tuples of 2 numbers each (1,2) (3,4) (5,6)
+
+    OUTPUT: 
+    (boolean, (1,2,3))
+    """
+
+    xs = [v1[0], v2[0], v3[0]]
+    ys = [v1[1], v2[1], v3[1]]
+    zs = [1, 1, 1]
+
+    coefficients_lists = [xs, ys, zs]
+    right_hand_lists = [point[0], point[1], 1]
+
+    a, b, c = solve_linear_3(coefficients_lists, right_hand_lists)
+
+    if a < 0 or b < 0 or c < 0:
+        return (False, (a,b,c))
+    else:
+        return (True, (a,b,c))
+
 
 
 def create_triangles(list_of_points):
-    pass
+    """
+    INPUT: list of x_i, y_i [(0,1),(2,0)...]
+    
+    OUTPUT: list of triangles:
+            [((x,y),(x2,y2),(x3,y3)), ((x,y),(x2,y2),(x3,y3)), ..]
+
+
+    """
 
 
 def do_triangle_lists_match(list_of_points1, list_of_points2):
