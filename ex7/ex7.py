@@ -10,22 +10,29 @@ def is_point_inside_triangle(point, v1, v2, v3):
     v1,v2,v3 are tuples of 2 numbers each (1,2) (3,4) (5,6)
 
     OUTPUT: 
-    (boolean, (1,2,3))
+    Depending if the equations have a solution return a matching boolean
+    and the list of a,b,c.
+    Example: (boolean, (1,2,3))
     """
+
+    res = True # Set default value for final output
 
     xs = [v1[0], v2[0], v3[0]]
     ys = [v1[1], v2[1], v3[1]]
     zs = [1, 1, 1]
 
-    coefficients_lists = [xs, ys, zs]
-    right_hand_lists = [point[0], point[1], 1]
+    coefficients_lists = [xs, ys, zs] # Collects lists into single list
+    right_hand_lists   = [point[0], point[1], 1] # Equations answers list 
 
+    # Call external method to solve linear equations 
     a, b, c = solve_linear_3(coefficients_lists, right_hand_lists)
-    
+
     if a < 0 or b < 0 or c < 0:
-        return (False, (a,b,c))
-    else:
-        return (True, (a,b,c))
+        # If any of a,b,c is lower than 0, then the equation
+        # doesn't have a solution. Therfore return False.
+        res = False
+    
+    return (res, (a,b,c))
 
 
 
@@ -47,23 +54,29 @@ def create_triangles(list_of_points):
     # Add triangles from id 4 to n
 
     for point_idx in range(4, len(list_of_points)):
+        # For every point in the INPUT list (points)
+        # check if any of the triangles contain that point.
+        # if it does, create a new triangles and delete the previous
         p = list_of_points[point_idx]
 
-        for t in range(0, len(triangles)):
-            # For every triangle in the current list
+        for t in range(len(triangles)):
+            # For every triangle in the assembeled list
             # there's a condition that if the given point (p)
             # is in the t triangle, then remove the triangle from
             # list and append 3 new ones .
             v1, v2, v3 = triangles[t] # vertex of the triangle T
 
             if is_point_inside_triangle(p, v1, v2, v3)[0]:
-                #print("heLLo")
+                # Found a Triangle containing point P
+                # Create new triangles
                 new_triangles = add_3_triangles(p, v1, v2, v3)
-                triangles.pop(t)
-                triangles.extend(new_triangles)
-                break
+                triangles.pop(t) # Remove triangle[t]
+                triangles.extend(new_triangles) # extend triangles
+                                                # list with the assembeled
+                                                # triangles
+                break # Move on to the next P(x,y)
 
-    return triangles
+    return triangles # Return assemebeld triangles
 
 def add_3_triangles(p, v1, v2, v3):
     """
@@ -101,7 +114,7 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
                 #print(res1, " AND ",res2)
                 if not (res1 and res2):
                     result = False
-                    break
+                    #break
         i += 1
     return result
 
