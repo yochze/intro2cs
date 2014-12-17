@@ -93,7 +93,7 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
                     tr1 = tuple(triangles_list1[j])
                     tr2 = tuple(triangles_list2[j]) 
                     if (is_point_inside_triangle(point_i_1, tr1[0], tr1[1], tr1[2])[0] and
-                    is_point_inside_triangles(point_i_2, tr2[0], tr2[1], tr2[2])[0]):
+                    is_point_inside_triangle(point_i_2, tr2[0], tr2[1], tr2[2])[0]):
                         result = True
                     else:
                         result = False
