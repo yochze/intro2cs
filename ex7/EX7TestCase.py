@@ -134,62 +134,62 @@ class EX7TestCase(unittest.TestCase):
         # triggering the match action.
         match(triangles_1, triangles_2)
 
-    # def test_do_triangle_lists_match(self):
-    #     # True
-    #     self.assertEqual(True, ex7.do_triangle_lists_match(
-    #         [(0, 0), (0, 100), (100, 100), (100, 0)],
-    #         [(0, 0), (0, 100), (100, 100), (100, 0)]
-    #     ))
-    #     self.assertEqual(True, ex7.do_triangle_lists_match(
-    #         [(0, 0), (0, 100), (100, 100), (100, 0)],
-    #         [(0, 0), (0, 350), (248, 350), (248, 0)]
-    #     ))
-    #
-    #     # False
-    #     self.assertEqual(False, ex7.do_triangle_lists_match(
-    #         [(0, 0), (0, 100), (100, 100), (100, 0)],
-    #         [(0, 0), (0, 100), (100, 0), (100, 100)]
-    #     ))
-    #     self.assertEqual(False, ex7.do_triangle_lists_match(
-    #         [(0, 0), (0, 100), (100, 100), (100, 0)],
-    #         [(0, 0), (248, 350), (0, 350), (248, 0)]
-    #     ))
-    #
-    # def test_get_intermediate_triangles(self):
-    #
-    #     self.assertEqual([((40.0, 40.0), (40.0, 40.0), (40.0, 40.0)),
-    #                       ((80.0, 80.0), (80.0, 80.0), (80.0, 80.0))],
-    #                      ex7.get_intermediate_triangles(
-    #                          [((0, 0), (0, 0), (0, 0)),
-    #                           ((0, 0), (0, 0), (0, 0))],
-    #                          [((100, 100), (100, 100), (100, 100)),
-    #                           ((200, 200), (200, 200), (200, 200))], 0.4))
-    #
-    #     self.assertEqual([((50.0, 50.0), (50.0, 50.0), (50.0, 50.0)),
-    #                       ((100.0, 100.0), (100.0, 100.0), (100.0, 100.0))],
-    #                      ex7.get_intermediate_triangles(
-    #                          [((0, 0), (0, 0), (0, 0)),
-    #                           ((0, 0), (0, 0), (0, 0))],
-    #                          [((100, 100), (100, 100), (100, 100)),
-    #                           ((200, 200), (200, 200), (200, 200))], 0.5))
-    #
-    #     self.assertEqual([((70.0, 80.0), (75.0, 85.0), (80.0, 80.0)),
-    #                       ((145.0, 155.0), (150.0, 150.0), (150.0, 150.0))],
-    #                      ex7.get_intermediate_triangles(
-    #                          [((30, 40), (20, 30), (10, 0)),
-    #                           ((70, 80), (60, 50), (40, 30))],
-    #                          [((110, 120), (130, 140), (150, 160)),
-    #                           ((220, 230), (240, 250), (260, 270))], 0.5))
+        def test_do_triangle_lists_match(self):
+         # True
+         self.assertEqual(True, ex7.do_triangle_lists_match(
+             [(0, 0), (0, 100), (100, 100), (100, 0)],
+             [(0, 0), (0, 100), (100, 100), (100, 0)]
+         ))
+         self.assertEqual(True, ex7.do_triangle_lists_match(
+             [(0, 0), (0, 100), (100, 100), (100, 0)],
+             [(0, 0), (0, 350), (248, 350), (248, 0)]
+         ))
 
-    # def test_get_array_of_matching_points(self):
-    #     triangles = ex7.create_triangles(
-    #         [(0, 0), (500, 0), (500, 350), (0, 350), (100, 0), (245, 345)])
-    #     triangles2 = ex7.create_triangles(
-    #         [(0, 0), (500, 0), (500, 350), (0, 350), (100, 0), (240, 340)])
-    #     inter_triangles = ex7.get_intermediate_triangles(triangles, triangles2,
-    #                                                      0.34)
-    #     ex7.get_array_of_matching_points((500, 350), triangles,
-    #                                      inter_triangles)
+         # False
+         self.assertEqual(False, ex7.do_triangle_lists_match(
+             [(0, 0), (0, 100), (100, 100), (100, 0)],
+             [(0, 0), (0, 100), (100, 0), (100, 100)]
+         ))
+         self.assertEqual(False, ex7.do_triangle_lists_match(
+             [(0, 0), (0, 100), (100, 100), (100, 0)],
+             [(0, 0), (248, 350), (0, 350), (248, 0)]
+         ))
+
+        def test_get_intermediate_triangles(self):
+
+         self.assertEqual([((40.0, 40.0), (40.0, 40.0), (40.0, 40.0)),
+                           ((80.0, 80.0), (80.0, 80.0), (80.0, 80.0))],
+                          ex7.get_intermediate_triangles(
+                              [((0, 0), (0, 0), (0, 0)),
+                               ((0, 0), (0, 0), (0, 0))],
+                              [((100, 100), (100, 100), (100, 100)),
+                               ((200, 200), (200, 200), (200, 200))], 0.4))
+
+         self.assertEqual([((50.0, 50.0), (50.0, 50.0), (50.0, 50.0)),
+                           ((100.0, 100.0), (100.0, 100.0), (100.0, 100.0))],
+                          ex7.get_intermediate_triangles(
+                              [((0, 0), (0, 0), (0, 0)),
+                               ((0, 0), (0, 0), (0, 0))],
+                              [((100, 100), (100, 100), (100, 100)),
+                               ((200, 200), (200, 200), (200, 200))], 0.5))
+
+         self.assertEqual([((70.0, 80.0), (75.0, 85.0), (80.0, 80.0)),
+                           ((145.0, 155.0), (150.0, 150.0), (150.0, 150.0))],
+                          ex7.get_intermediate_triangles(
+                              [((30, 40), (20, 30), (10, 0)),
+                               ((70, 80), (60, 50), (40, 30))],
+                              [((110, 120), (130, 140), (150, 160)),
+                               ((220, 230), (240, 250), (260, 270))], 0.5))
+
+        def test_get_array_of_matching_points(self):
+         triangles = ex7.create_triangles(
+             [(0, 0), (500, 0), (500, 350), (0, 350), (100, 0), (245, 345)])
+         triangles2 = ex7.create_triangles(
+             [(0, 0), (500, 0), (500, 350), (0, 350), (100, 0), (240, 340)])
+         inter_triangles = ex7.get_intermediate_triangles(triangles, triangles2,
+                                                          0.34)
+         ex7.get_array_of_matching_points((500, 350), triangles,
+                                          inter_triangles)
 
 
 if __name__ == '__main__':
