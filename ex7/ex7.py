@@ -90,10 +90,10 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
             point_i_2 = list_of_points2[i]
 
             for j in range(len(triangles_list1)):
-                    if (is_point_inside_triangle(point_i_1,
-                            triangles_list_1[j])[0] and
-                    is_point_inside_triangles(point_i_2, 
-                            triangles_list_2[j])[0]):
+                    tr1 = tuple(triangles_list1[j])
+                    tr2 = tuple(triangles_list2[j]) 
+                    if (is_point_inside_triangle(point_i_1, tr1)[0] and
+                    is_point_inside_triangles(point_i_2, tr2)[0]):
                         result = True
                     else:
                         result = False
@@ -131,7 +131,7 @@ def get_intermediate_triangles(source_triangles_list, target_triangles_list,
             p1 = source_triangles_list[i][j]
             p2 = target_triangles_list[i][j]
 
-            triangle_vertexs.append(get_point_in_segment(p1, p2))
+            triangle_vertexs.append(get_point_in_segment(p1, p2, alpha))
 
         triangles.append(triangle_vertexs)
 
