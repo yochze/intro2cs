@@ -78,24 +78,30 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
     
     triangles_list1 = create_triangles(list_of_points1)
     triangles_list2 = create_triangles(list_of_points2) 
-
+    
     i, result = 0, True
     
-    if len(triangles_list1) != len(triangles_list2):
+    if 1==2:
         result = False
 
     else:
-        while i < len(list_of_points1):
+        while (i < len(list_of_points1)) and (result):
             point_i_1 = list_of_points1[i]
             point_i_2 = list_of_points2[i]
 
             for j in range(len(triangles_list1)):
                     tr1 = tuple(triangles_list1[j]) # (x,y,z)
                     tr2 = tuple(triangles_list2[j]) 
-                    if (is_point_inside_triangle(point_i_1, tr1[0], tr1[1],
-                        tr1[2])[0] and is_point_inside_triangle(point_i_2, 
-                            tr2[0], tr2[1], tr2[2])[0]) is not True:
+
+                    res1 = (is_point_inside_triangle(point_i_1, tr1[0], tr1[1], tr1[2])[0])
+                    res2 = (is_point_inside_triangle(point_i_2, tr2[0], tr2[1], tr2[2])[0])
+                    
+                    print(str(res1) + " AND " + str(res2)) 
+                    #print(res1, res2)
+
+                    if res1 is False or res2 is False:
                         result = False
+                        break
             i += 1
                         
         
@@ -148,3 +154,13 @@ def create_sequence_of_images(size, source_image, target_image,
 
 
 # until here should be submitted by 25.12.2014
+
+
+lop1 = [(0,0),(100,0),(100,200),(0,200),(50,40)]                                
+lop2 = [(0,0),(200,0),(200,400),(0,400),(150,100)]                              
+lop3 = [(0,0),(100,0),(100,200),(0,200),(50,140)]   
+
+print(do_triangle_lists_match(lop1,lop2)) # Should be True 
+print(do_triangle_lists_match(lop2,lop3)) # Should be False
+print(do_triangle_lists_match(lop1,lop3)) # Should be False
+print(do_triangle_lists_match(lop1,lop2)) # Should be False
