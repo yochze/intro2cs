@@ -23,11 +23,20 @@ def pixel(image, pos, color):
 
 
 def pil_image_from_lists(image_as_lists, max_x, max_y):
-    """ Generate a Image image obj from list of lists """
+    """ Generate an Image obj from list of lists """
+    #Support for two types of indexing:
+    #First where the image is indexed image[y][x]
+    #and second where the image is indexed image[x][y].
+    #This allows to accept either a (max_x X max_y)
+    #or (max_y X max_x) list of lists as the image.
+    first_indexing = len(image_as_lists) == max_y
     im = Image.new("RGB", (max_x, max_y))
     for i in range(max_x):
         for j in range(max_y):
-            im.putpixel((i,j), image_as_lists[j][i])
+            if first_indexing:
+                im.putpixel((i, j), image_as_lists[j][i])
+            else:
+                im.putpixel((i, j), image_as_lists[i][j])
     return im
 
 
@@ -49,6 +58,7 @@ class TrianglesHandler (object):
         self.handler2.draw_triangles()
         matching = ex7.do_triangle_lists_match(self.handler1.coord_list,
                                                  self.handler2.coord_list)
+
         if not matching:
             print("Marked points are not in matching triangles.\
                 Please mark the points again.")
