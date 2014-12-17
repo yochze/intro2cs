@@ -92,8 +92,8 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
             for j in range(len(triangles_list1)):
                     tr1 = tuple(triangles_list1[j])
                     tr2 = tuple(triangles_list2[j]) 
-                    if (is_point_inside_triangle(point_i_1, tr1)[0] and
-                    is_point_inside_triangles(point_i_2, tr2)[0]):
+                    if (is_point_inside_triangle(point_i_1, tr1[0], tr1[1], tr1[2])[0] and
+                    is_point_inside_triangles(point_i_2, tr2[0], tr2[1], tr2[2])[0]):
                         result = True
                     else:
                         result = False
@@ -104,18 +104,10 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
     return result
 
 
-
-    
-
-
-
-
-
-
 def get_point_in_segment(p1, p2, alpha):
     """DOCSTIRNG"""
-    x = (1-alpha)*p1[0] + alpha*p2[0]
-    y = (1-alpha)*p1[1] + alpha*p2[1]
+    x = int((1-alpha)*p1[0] + alpha*p2[0])
+    y = int((1-alpha)*p1[1] + alpha*p2[1])
 
     return (x,y)
 
@@ -133,7 +125,7 @@ def get_intermediate_triangles(source_triangles_list, target_triangles_list,
 
             triangle_vertexs.append(get_point_in_segment(p1, p2, alpha))
 
-        triangles.append(triangle_vertexs)
+        triangles.append(tuple(triangle_vertexs))
 
     return triangles
 
