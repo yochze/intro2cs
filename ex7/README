@@ -14,12 +14,22 @@ python3 ex7.py
 
 Morphing
 
+Face morphing program
+The program gets 2 images of faces, and several parameters and form
+a new combined image of both of the faces.
 
 Part A:
 
+This part includs the points gathering from the end-user.
+Then, the program creates triangles based on the given points while
+validating based on a few rules.
 
+Then, based on the list of triangles of each image (two lists), the
+program computes (with an alpha param) a new list of intermediate triangles
+and generates a new list of the intermediate triangles.
 
 Part B:
+
 
 TBD
 

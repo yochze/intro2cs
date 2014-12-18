@@ -1,13 +1,11 @@
 #############################################################
-# FILE : balanced_brackets.py
+# FILE : ex7.py
 # WRITER : Yochay Ettun , yochze
 # EXERCISE : intro2cs ex6
 # DESCRIPTION:
-# Several functions to determine if a string has a balanced
-# structure of parenthesis.
-# Also functions to determine what is wrong in an unbalanced
-# string. And another function to map the parenthesis and chars
-# in a balanced string.
+# Face morphing program
+# The program gets 2 images of faces, and several parameters and form
+# a new combined image of both of the faces.
 #############################################################
 
 from SolveLinear3 import solve_linear_3
@@ -50,22 +48,30 @@ def is_point_inside_triangle(point, v1, v2, v3):
 
 def create_triangles(list_of_points):
     """
+    The function retrieves a list of points, and creates
+    triangles out of it.
+    Firstly, it creates triangles from the first 1..INITIAL_POINTS(=4)
+    and then iterates through the rest of the points and creates
+    a list of triangles.
+
+
     INPUT: list of x_i, y_i [(0,1),(2,0)...]
     
     OUTPUT: list of triangles:
             [((x,y),(x2,y2),(x3,y3)), ((x,y),(x2,y2),(x3,y3)), ..]
 
-
     """
-    triangles = []
+    
+    initial_points = 4 
+    triangles = [] # Initialize the output list
     
     # Add the initial triangles (corners of the images)
 
-    triangles.append((list_of_points[0], list_of_points[1], list_of_points[2])) 
-    triangles.append((list_of_points[0], list_of_points[3], list_of_points[2])) 
+    triangles.append((list_of_points[0],list_of_points[1],list_of_points[2])) 
+    triangles.append((list_of_points[0],list_of_points[3],list_of_points[2])) 
     # Add triangles from id 4 to n
 
-    for point_idx in range(4, len(list_of_points)):
+    for point_idx in range(initial_points, len(list_of_points)):
         # For every point in the INPUT list (points)
         # check if any of the triangles contain that point.
         # if it does, create a new triangles and delete the previous
@@ -87,7 +93,7 @@ def create_triangles(list_of_points):
                                                 # list with the assembeled
                                                 # triangles
                 break
-                 # Move on to the next P(x,y)
+                # Move on to the next P(x,y)
 
     return triangles # Return assemebeld triangles
 
@@ -164,22 +170,35 @@ def get_point_in_segment(p1, p2, alpha):
 def get_intermediate_triangles(source_triangles_list, target_triangles_list,
                                                                   alpha):
     """
-
+    This functions finds an intermediate triangle for each pair of triangles
+    in the two lists (images).
+    
+    INPUT:  source list size N, target list size N and an alpha parameter
+    OUTPUT: a list size N containing all the intermediate triangles.
     """
-    triangles = []
+    
+    triangles = [] # Initialize output
 
     for i in range(len(source_triangles_list)):
         # For every source triangle list, 
-        triangle_vertexs = []
-        for j in range(len(source_triangles_list[i])):
-            p1 = source_triangles_list[i][j]
-            p2 = target_triangles_list[i][j]
+        
+        triangle_vertexs = [] # Single triangle init 
+                              # to fill with points of the intermediate
+                              # triangle.
 
+        for j in range(len(source_triangles_list[i])):
+            # For each point in pair of triangles 
+            p1 = source_triangles_list[i][j] # Point of 1st triangle
+            p2 = target_triangles_list[i][j] # Point of 2nd triangle
+            
+            # Append the intermediate point to the triangle
             triangle_vertexs.append(get_point_in_segment(p1, p2, alpha))
 
-        triangles.append(tuple(triangle_vertexs))
+        triangles.append(tuple(triangle_vertexs)) # Append the entire points
+                                                  # as a tuple to the 
+                                                  # triangles list.
 
-    return triangles
+    return triangles # Return all triangles
 
 
 # until here should be submitted by next week - 18.12.2014
