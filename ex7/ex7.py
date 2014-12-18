@@ -106,15 +106,22 @@ def add_3_triangles(p, v1, v2, v3):
 
 
 def do_triangle_lists_match(list_of_points1, list_of_points2):
+    """
+    Testing if triangles list are match.
+    Given 2 lists of points, the function create the triangles
+    for each of the lists.
+    Then it matches every point id with the parallel point id and 
+    and if point is in a matching triangle (in the matching list)
+
+    INPUT: 2 lists, same size.
+    OUTPUT: True or False depending if tests was success.
+    """
     
     triangles_list1 = create_triangles(list_of_points1) # Create triangles
     triangles_list2 = create_triangles(list_of_points2) 
 
-    #i, result = 0, True # Initialize variables index and result.
-    i = 0
-    result = True
+    i, result = 0, True # Initialize variables index and result.
     
-    #while (i < len(list_of_points1)-1) and (result):
     for i in range(len(list_of_points1)):
         # Iterating through the list of points (assumint len(list1/list2)
         # is equal). And iterating until result is not True.
@@ -134,30 +141,35 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
             res2 = (is_point_inside_triangle(point_i_2, tr2[0], tr2[1],
                 tr2[2])[0])
                 
-            if (res1 == False) or (res2 == False):
+            if (res1 != res2):
                 # If not True and True, result is false
                 # Finish and return False.
-                result = False
-            else:
-                result = True
+                return False
     
-    return result
+    return True
 
 
 def get_point_in_segment(p1, p2, alpha):
-    """DOCSTIRNG"""
+    """ Based on the equation, this function computes 
+        the point in the segment.
+
+        INPUT: 2 points and an alpha parameter
+        OUTPUT: (x,y) coordinates
+    """
     x = int((1-alpha)*p1[0] + alpha*p2[0])
     y = int((1-alpha)*p1[1] + alpha*p2[1])
 
     return (x,y)
 
-
-
 def get_intermediate_triangles(source_triangles_list, target_triangles_list,
                                                                   alpha):
+    """
+
+    """
     triangles = []
 
     for i in range(len(source_triangles_list)):
+        # For every source triangle list, 
         triangle_vertexs = []
         for j in range(len(source_triangles_list[i])):
             p1 = source_triangles_list[i][j]
