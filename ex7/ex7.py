@@ -1,3 +1,15 @@
+#############################################################
+# FILE : balanced_brackets.py
+# WRITER : Yochay Ettun , yochze
+# EXERCISE : intro2cs ex6
+# DESCRIPTION:
+# Several functions to determine if a string has a balanced
+# structure of parenthesis.
+# Also functions to determine what is wrong in an unbalanced
+# string. And another function to map the parenthesis and chars
+# in a balanced string.
+#############################################################
+
 from SolveLinear3 import solve_linear_3
 
 
@@ -98,8 +110,11 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
     triangles_list1 = create_triangles(list_of_points1) # Create triangles
     triangles_list2 = create_triangles(list_of_points2) 
 
-    i, result = 0, True # Initialize variables index and result.
+    #i, result = 0, True # Initialize variables index and result.
+    i = 0
+    result = True
     
+    #while (i < len(list_of_points1)-1) and (result):
     for i in range(len(list_of_points1)):
         # Iterating through the list of points (assumint len(list1/list2)
         # is equal). And iterating until result is not True.
@@ -111,20 +126,21 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
             # Iterating through the triangles list
             # to find if there's a match.
         
-            tr1 = tuple(triangles_list1[j]) # (x,y,z)
-            tr2 = tuple(triangles_list2[j]) # Current triangle j.
-
+            tr1 = triangles_list1[j] # ((x,y),(x,y),(x,y))
+            tr2 = triangles_list2[j] # Current triangles j.
+            
             res1 = (is_point_inside_triangle(point_i_1, tr1[0], tr1[1],
                 tr1[2])[0]) # Returns a bool if point in triangle.
             res2 = (is_point_inside_triangle(point_i_2, tr2[0], tr2[1],
                 tr2[2])[0])
                 
-                #print(res1, " AND ",res2)
-            if not (res1 and res2):
+            if (res1 == False) or (res2 == False):
                 # If not True and True, result is false
                 # Finish and return False.
-                return False
-
+                result = False
+            else:
+                result = True
+    
     return result
 
 
