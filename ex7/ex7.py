@@ -142,11 +142,11 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
                 tr2[2])[0])
                 
             if (res1 != res2):
-                # If not True and True, result is false
+                # There was no match.
                 # Finish and return False.
                 return False
     
-    return True
+    return True # Success! return True
 
 
 def get_point_in_segment(p1, p2, alpha):
@@ -201,27 +201,3 @@ def create_sequence_of_images(size, source_image, target_image,
 
 
 # until here should be submitted by 25.12.2014
-
-
-lop1 = [(0,0),(100,0),(100,200),(0,200),(50,40)]                                
-lop2 = [(0,0),(200,0),(200,400),(0,400),(150,100)]                              
-lop3 = [(0,0),(100,0),(100,200),(0,200),(50,140)]   
-
-# print(do_triangle_lists_match(lop1,lop2)) # Should be True 
-# print(do_triangle_lists_match(lop2,lop3)) # Should be False
-# print(do_triangle_lists_match(lop1,lop3)) # Should be False
-# print(do_triangle_lists_match(lop1,lop2)) # Should be False
-a = [(0, 0), (100, 0), (100, 200), (0, 200), (50, 40)] 
-b = [(0, 0), (200, 0), (200, 400), (0, 400), (150, 100)]
-#print(create_triangles(a))
-#c= [(0, 0), (100, 0), (100, 100), (0, 100), (80, 10)]
-#d = [(0, 0), (100, 0), (100, 100), (0, 100), (80, 10)]
-#d = [(0, 0), (100, 0), (100, 100), (0, 100)]
-#d = [(0, 0), (100, 0), (100, 100), (0, 100), (80, 10), (70, 5)]
-
-#d = create_triangles(d)
-
-#for i in range(len(d)):
-#    print(d[i])
-#print("#2")
-#print(do_triangle_lists_match(a,b)) # Should be true
