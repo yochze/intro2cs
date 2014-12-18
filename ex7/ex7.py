@@ -71,9 +71,11 @@ def create_triangles(list_of_points):
                 # Create new triangles
                 new_triangles = add_3_triangles(p, v1, v2, v3)
                 triangles.pop(t) # Remove triangle[t]
-                triangles.extend(new_triangles) # extend triangles
+                #triangles.extend(new_triangles) # extend triangles
                                                 # list with the assembeled
                                                 # triangles
+                for tr in new_triangles:
+                    triangles.insert(t, tr)
                  # Move on to the next P(x,y)
 
     return triangles # Return assemebeld triangles
@@ -94,28 +96,38 @@ def add_3_triangles(p, v1, v2, v3):
 
 def do_triangle_lists_match(list_of_points1, list_of_points2):
     
-    triangles_list1 = create_triangles(list_of_points1)
+    triangles_list1 = create_triangles(list_of_points1) # Create triangles
     triangles_list2 = create_triangles(list_of_points2) 
     
-    i, result = 0, True
+    i, result = 0, True # Initialize variables index and result.
     
-    #for i in range(len(list_of_points1)):
     while (i < len(list_of_points1)-1) and result:
-        point_i_1 = list_of_points1[i]
-        point_i_2 = list_of_points2[i]
+        # Iterating through the list of points (assumint len(list1/list2)
+        # is equal). And iterating until result is not True.
+
+        point_i_1 = list_of_points1[i] # Refering to the current i point
+        point_i_2 = list_of_points2[i] # in each list. 
 
         for j in range(len(triangles_list1)):
-                tr1 = tuple(triangles_list1[j]) # (x,y,z)
-                tr2 = tuple(triangles_list2[j]) 
+            # Iterating through the triangles list
+            # to find if there's a match.
+        
+            tr1 = tuple(triangles_list1[j]) # (x,y,z)
+            tr2 = tuple(triangles_list2[j]) # Current triangle j.
 
-                res1 = (is_point_inside_triangle(point_i_1, tr1[0], tr1[1], tr1[2])[0])
-                res2 = (is_point_inside_triangle(point_i_2, tr2[0], tr2[1], tr2[2])[0])
+            res1 = (is_point_inside_triangle(point_i_1, tr1[0], tr1[1],
+                tr1[2])[0]) # Returns a bool if point in triangle.
+            res2 = (is_point_inside_triangle(point_i_2, tr2[0], tr2[1],
+                tr2[2])[0])
                 
                 #print(res1, " AND ",res2)
-                if not (res1 and res2):
-                    result = False
-                    break
-        i += 1
+            if not (res1 and res2):
+                # If not True and True, result is false, break 
+                # inner loop.
+                result = False
+                break
+        i += 1 # Next index in list of points
+
     return result
 
 

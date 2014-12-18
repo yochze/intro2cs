@@ -67,10 +67,7 @@ class EX7TestCase(unittest.TestCase):
     def test_create_triangles(self):
         triangles_1 = ex7.create_triangles(
             [(0, 0), (100, 0), (100, 100), (0, 100)])
-                # 0, 1, 2, 3
         triangles_2 = [((0, 0), (100, 0), (100, 100)),
-                        # 0, 1, 2
-                        # 0, 3, 2
                        ((0, 0), (0, 100), (100, 100))]
 
         # Since output is a tuple and set-match is required, must manually
