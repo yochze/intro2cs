@@ -74,8 +74,6 @@ def create_triangles(list_of_points):
                 triangles.extend(new_triangles) # extend triangles
                                                 # list with the assembeled
                                                 # triangles
-                #for tr in new_triangles:
-                 #   triangles.insert(t, tr)
                 break
                  # Move on to the next P(x,y)
 
@@ -99,10 +97,10 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
     
     triangles_list1 = create_triangles(list_of_points1) # Create triangles
     triangles_list2 = create_triangles(list_of_points2) 
-    
+
     i, result = 0, True # Initialize variables index and result.
     
-    while (i < len(list_of_points1)) and result:
+    for i in range(len(list_of_points1)):
         # Iterating through the list of points (assumint len(list1/list2)
         # is equal). And iterating until result is not True.
 
@@ -123,11 +121,9 @@ def do_triangle_lists_match(list_of_points1, list_of_points2):
                 
                 #print(res1, " AND ",res2)
             if not (res1 and res2):
-                # If not True and True, result is false, break 
-                # inner loop.
-                result = False
-                break
-        i += 1 # Next index in list of points
+                # If not True and True, result is false
+                # Finish and return False.
+                return False
 
     return result
 
