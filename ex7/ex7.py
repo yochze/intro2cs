@@ -204,9 +204,47 @@ def get_intermediate_triangles(source_triangles_list, target_triangles_list,
 # until here should be submitted by next week - 18.12.2014
 
 
-def get_array_of_matching_points(size,triangles_list ,
+def get_array_of_matching_points(size=(500,350), triangles_list,
                                  intermediate_triangles_list):
-    pass
+    """ """
+    max_x, max_y = size
+
+    final_image = ([[0] * max_y]) * max_x
+    
+
+    for i in range(len(triangles_list)):
+        
+        row_n += 1 if i % max_x == 0 else 0
+        col_n = i % max_x
+
+        for j in range(len(intermediate_triangles_list)):
+            p1, p2, p3 = intermediate_triangles_list[j]
+            result     = is_point_inside_triangle(point, p1, p2, p3)
+
+            if result[0]:
+                new_point = compute_new_point(triangles_list[j], result[1])
+
+                final_image[row_n][col_n] = new_point
+        
+    return final_image
+
+                
+
+
+
+
+def compute_new_point(old_triangle, coefficients):
+    xs = (old_triangle[0][0], old_triangle[1][0], old_triangle[2][0])
+    ys = (old_triangle[0][1], old_triangle[0][1], old_triangle[0][1])
+    
+
+    x = (coefficients[0] * xs[0]) + (coefficients[1] * xs[1]) + 
+    (coefficients[2] * xs[2])
+
+    y = (coefficients[0] * ys[0]) + (coefficients[1] * ys[1]) +
+    (coefficients[2] * ys[2])
+
+    return (x,y)
 
 
 def create_intermediate_image(alpha, size, source_image, target_image,
