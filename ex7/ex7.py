@@ -208,14 +208,14 @@ def get_array_of_matching_points(size, triangles_list,
     """ """
     max_x, max_y = size
 
-    final_image = ([[0] * max_y]) * max_x
+    final_image = ([[0] * max_x]) * max_y
 
-    for i in range(max_x):
-        for j in range(max_y):
+    for i in range(max_y):
+        for j in range(max_x):
 
-            for tr in intermediate_triangles_list:
-                point = (i,j)
-                p1, p2, p3 = tr 
+            for z in range(intermediate_triangles_list):
+                point      = (j,i)
+                p1, p2, p3 = intermediate_triangles_list[z]
                 result     = is_point_inside_triangle(point, p1, p2, p3)
 
                 if result[0]:
