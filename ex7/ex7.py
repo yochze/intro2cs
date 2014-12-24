@@ -10,7 +10,6 @@
 
 from SolveLinear3 import solve_linear_3
 
-
 def is_point_inside_triangle(point, v1, v2, v3):
     """
     This function check if a given point is in the area of the 
@@ -204,27 +203,25 @@ def get_intermediate_triangles(source_triangles_list, target_triangles_list,
 # until here should be submitted by next week - 18.12.2014
 
 
-def get_array_of_matching_points(size=(500,350), triangles_list,
+def get_array_of_matching_points(size, triangles_list,
                                  intermediate_triangles_list):
     """ """
     max_x, max_y = size
 
     final_image = ([[0] * max_y]) * max_x
-    
 
-    for i in range(len(triangles_list)):
-        
-        row_n += 1 if i % max_x == 0 else 0
-        col_n = i % max_x
+    for i in range(max_x):
+        for j in range(max_y):
 
-        for j in range(len(intermediate_triangles_list)):
-            p1, p2, p3 = intermediate_triangles_list[j]
-            result     = is_point_inside_triangle(point, p1, p2, p3)
+            for tr in intermediate_triangles_list:
+                point = (i,j)
+                p1, p2, p3 = tr 
+                result     = is_point_inside_triangle(point, p1, p2, p3)
 
-            if result[0]:
-                new_point = compute_new_point(triangles_list[j], result[1])
+                if result[0]:
+                    new_point = compute_new_point(tr, result[1])
 
-                final_image[row_n][col_n] = new_point
+                    final_image[i][j] = new_point
         
     return final_image
 
@@ -238,10 +235,10 @@ def compute_new_point(old_triangle, coefficients):
     ys = (old_triangle[0][1], old_triangle[0][1], old_triangle[0][1])
     
 
-    x = (coefficients[0] * xs[0]) + (coefficients[1] * xs[1]) + 
+    x = (coefficients[0] * xs[0]) + (coefficients[1] * xs[1]) + \
     (coefficients[2] * xs[2])
 
-    y = (coefficients[0] * ys[0]) + (coefficients[1] * ys[1]) +
+    y = (coefficients[0] * ys[0]) + (coefficients[1] * ys[1]) + \
     (coefficients[2] * ys[2])
 
     return (x,y)
@@ -249,12 +246,61 @@ def compute_new_point(old_triangle, coefficients):
 
 def create_intermediate_image(alpha, size, source_image, target_image,
                               source_triangles_list, target_triangles_list):
-    pass
+   # This function gets an alpha, size, source image and target image
+   # and needs to return an intermediate image based on that data.
+
+
+    # Source image - max_y * max_x size multiarray
+    inter_tr = get_intermediate_triangles(source_triangles_list,
+                                            target_triangles_list,
+                                            alpha)
+
+    source_matching_points = get_array_of_matching_points( 
+                                            size,
+                                            source_triangles_list,
+                                            inter_tr)
+
+
+    target_matching_points = get_array_of_matching_points( 
+                                            size,
+                                            target_triangles_list,
+                                            inter_tr)
+
+    max_x, max_y = size 
+    
+    final_image = ([[0] * max_y]) * max_x
+    
+    for row in range(max_y):
+        for cell in range(max_x):
+
+            source_RGB = source_image[cell,row]
+            target_RGB = target_image[cell,row]            
+
+            r = int((((1-alpha)*source_RGB[0]) + (alpha*target_RGB[0])))
+            g = int((((1-alpha)*source_RGB[1]) + (alpha*target_RGB[1])))
+            b = int((((1-alpha)*source_RGB[2]) + (alpha*target_RGB[2])))
+
+            final_image[cell][row] = (r,g,b)
+
+    return final_image
+
 
 
 def create_sequence_of_images(size, source_image, target_image, 
                 source_triangles_list, target_triangles_list, num_frames):
-    pass
+
+    num_frames = 2
+
+    images = []
+
+    for frame in range(num_frames):
+        alpha = (frame / (num_frames - 1))
+        current_frame = create_intermediate_image(alpha, size, source_image, target_image, source_triangles_list, target_triangles_list)
+        images.append(current_frame)
+
+
+    return images
+
 
 
 # until here should be submitted by 25.12.2014
