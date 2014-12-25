@@ -213,7 +213,7 @@ def get_array_of_matching_points(size, triangles_list,
     for i in range(max_y):
         for j in range(max_x):
 
-            for z in range(intermediate_triangles_list):
+            for z in range(len(intermediate_triangles_list)):
                 point      = (j,i)
                 p1, p2, p3 = intermediate_triangles_list[z]
                 result     = is_point_inside_triangle(point, p1, p2, p3)
@@ -222,6 +222,7 @@ def get_array_of_matching_points(size, triangles_list,
                     new_point = compute_new_point(tr, result[1])
 
                     final_image[i][j] = new_point
+                    break
         
     return final_image
 
@@ -235,11 +236,9 @@ def compute_new_point(old_triangle, coefficients):
     ys = (old_triangle[0][1], old_triangle[0][1], old_triangle[0][1])
     
 
-    x = (coefficients[0] * xs[0]) + (coefficients[1] * xs[1]) + \
-    (coefficients[2] * xs[2])
+    x = (coefficients[0] * xs[0]) + (coefficients[1] * xs[1]) + (coefficients[2] * xs[2])
 
-    y = (coefficients[0] * ys[0]) + (coefficients[1] * ys[1]) + \
-    (coefficients[2] * ys[2])
+    y = (coefficients[0] * ys[0]) + (coefficients[1] * ys[1]) + (coefficients[2] * ys[2])
 
     return (x,y)
 
