@@ -1,0 +1,33 @@
+yochze
+201517018
+Yochay Ettun
+
+Readme for the 8th exercise in Intro2CS.
+
+Usage:
+python3 asteroidsMain.py
+ 
+==================
+=  Description:  =
+==================
+The program is an OOP implementation of Asteroids game.
+It uses external graphic interface provided by TKinter and Turtle.
+
+In the exercise I implemented large portion of the GameRunner(asteroidsMain.py)
+class. Including movement of objects, shooting torpedos, gaining scores, etc.
+
+Exiting game occures when the end-user presses "q" key or loses all of his 
+lives, or winning and destroying all asteroids. 
+
+
+=============================
+=  List of submitted files: =
+=============================
+
+README                  This file
+asteroidsMain.py        The file containing the class with the game loop
+                        function that handles the game flow.
+
+
+
+
