@@ -298,8 +298,21 @@ class GameRunner:
         """
         asteroids_count = len(self.game.get_asteroids())
         lives_count     = self.game.get_num_lives()
-
-        if self.game.should_end() or asteroids_count == 0 or lives_count == 0:
+        title = "Ending game!"
+        ending = False
+        
+        if self.game.should_end():
+            ending = True
+            message = "Too bad. Maybe come again later?"
+        elif asteroids_count == 0:
+            ending = True
+            message = "You won! You destroyed all of the asteroids!!"
+        elif lives_count == 0:
+            ending = True
+            message = "You lost :( You have no more lives"
+        
+        if ending:
+            self.game.show_message(title, message)
             self.game.end_game()
 
 def main():
