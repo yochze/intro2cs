@@ -1,3 +1,4 @@
+from superTorpedo import *
 from torpedo import *
 from asteroid import *
 from spaceship import *

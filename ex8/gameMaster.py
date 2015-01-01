@@ -7,7 +7,7 @@ import datetime
 
 from originalGame import *
 from torpedo import *
-from super_torpedo import * # Include the new super_torpedo file
+from superTorpedo import * # Include the new super_torpedo file
 from asteroid import *
 from spaceship import *
 

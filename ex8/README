@@ -28,7 +28,7 @@ Even though its life span is half of regular torpedo, it's much bigger
 and much more destructive!! :)
 
 To add the super torpedo I did the following:
-1. Added a super_torpedo.py file that contain the class SuperTorpedo
+1. Added a superTorpedo.py file that contain the class SuperTorpedo
 The class, similarly to the Torpedo class inherirts from BaseObject
 and has same initialization method.
 also, like torpedo class, I added get_lifespan getter and move function.
@@ -46,6 +46,9 @@ being added to the torpedos list (along with the regular torpedo)
 that way, I can keep all the mechanism of regular torpedos also to cover the
 super torpedos. For example: limit, torpedos_count etc..
 
+4. Added the new shape to the gameMaster.py file and to the game flow.
+
+
 
 =============================
 =  List of submitted files: =
@@ -54,6 +57,9 @@ super torpedos. For example: limit, torpedos_count etc..
 README                  This file
 asteroidsMain.py        The file containing the class with the game loop
                         function that handles the game flow.
+super_torpedo.          The file contain the super_torpedo shape class
+                        that was added for the bonus assignment.
+
 
 
 
