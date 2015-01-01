@@ -29,7 +29,13 @@ class GameRunner:
         self.game.ontimer(self._do_loop,5)
 
     def game_loop(self):
-        #This is where your code goes!
+        """
+        The main function of the game. 
+        For each turn this function is being called.
+        it handles the movement of the objects, shooting torpedos,
+        handle collisions and check if the match should be ended according
+        to predefined set of rules.
+        """
         torpedos_to_remove, asteroids_to_remove = [], []
         self.move_asteroids()
         self.move_ship()
@@ -39,6 +45,9 @@ class GameRunner:
         asteroid_colided = self.ship_asteroid_collison()
 
         if pairs:
+            # If there are colided pairs, then we should mark the 
+            # torpedos and asteroids to be removed. 
+            # And call the handle collisons (which adds ranking, splitting etc)
             self.handle_collisons(pairs)
             torpedos_to_remove  += [ torpedo for torpedo, asteroid in pairs ]
             asteroids_to_remove += [ asteroid for torpedo, asteroid in pairs ]
@@ -59,24 +68,41 @@ class GameRunner:
 
 
     def move_object(self, shape):
-        min_x, max_x = self.game.get_screen_min_x(), self.game.get_screen_max_x()
-        min_y, max_y = self.game.get_screen_min_y(), self.game.get_screen_max_y()
+        """
+        This function gets a BaseObject#Shape and calculates its next
+        x,y coordinates based on the given formula.
+        new_x = ((speedX + corX - minX )% dX) + minX (Same for Y cor)
+        """
+        min_x, max_x = self.game.get_screen_min_x(),self.game.get_screen_max_x()
+        min_y, max_y = self.game.get_screen_min_y(),self.game.get_screen_max_y()
 
         dx = max_x - min_x
         dy = max_y - min_y
-        
-        new_cord_x = ((shape.get_speed_x() + shape.get_x_cor()) % dx) + min_x
-        new_cord_y = ((shape.get_speed_y() + shape.get_y_cor()) % dy) + min_y
+        inner_eq_x = shape.get_speed_x() + shape.get_x_cor() - min_x
+        inner_eq_y = shape.get_speed_y() + shape.get_y_cor() - min_y 
+
+        new_cord_x = ((inner_eq_x) % dx) + min_x
+        new_cord_y = ((inner_eq_y) % dy) + min_y
 
         shape.move(new_cord_x, new_cord_y)
 
     
     def move_asteroids(self):
+        """ 
+        Collect all asteroids that are in the game and 
+        move them with the move_object function.
+        """
         asteroids = self.game.get_asteroids()
         for asteroid in asteroids:
             self.move_object(asteroid)
 
     def move_ship(self):
+        """
+        With the help of "move_object" function, this function
+        checks which key is pressed by user and move the ship
+        accordingly. It collects the ship X,Y of speed and position and send 
+        it to the main move_object function
+        """
         ship = self.game.get_ship()
         
         if self.game.is_right_pressed():
@@ -95,53 +121,96 @@ class GameRunner:
 
             ship.set_speed_x(x_speed)
             ship.set_speed_y(y_speed)
-            
-            self.move_object(ship)
+        
+        # Move the object
+        self.move_object(ship)
 
+    def move_torpedos(self):
+        """ 
+        Collect all torpedosthat are in the game and 
+        move them with the move_object function.
+        """
+        torpedos      = self.game.get_torpedos()
+        for torpedo in torpedos:
+            # Iterate through torpedos
+            self.move_object(torpedo)
 
     def shooting_torpedo(self):
+        """
+        Shooting new torpedos based on the user input. 
+        If space (fire trigger) is pressed, and the torpedos amount on screen
+        didn't pass its limit (20) then the function generates
+        a new torpedo, with appropriate angle, x,y position and speed.
+        """
         torpedos_amount = len(self.game.get_torpedos())
-        torpedos_limit = 20
+        torpedos_limit = 20 # Set the torpedos limit.
 
         if self.game.is_fire_pressed() and (torpedos_amount < torpedos_limit):
             ship = self.game.get_ship() 
+
+            # Collect position data for the new torpedo
             x_pos = ship.get_x_cor()
             y_pos = ship.get_y_cor()
+
+            # Collect degrees
             org_deg = ship.get_angle()
             deg_r = math.radians(org_deg)
-
+            
+            # Collect speed
             x_speed = ship.get_speed_x() + 2 * math.cos(deg_r)
             y_speed = ship.get_speed_y() + 2 * math.sin(deg_r)
 
+            # Call the external GameMaster#add_torpedo method to generate
+            # a new torpedo.
             self.game.add_torpedo(x_pos, y_pos, x_speed, y_speed, org_deg)
 
-    def move_torpedos(self):
-        torpedos      = self.game.get_torpedos()
-        for torpedo in torpedos:
-                self.move_object(torpedo)
+
 
     def check_collisions(self):
-        torpedos  = self.game.get_torpedos()
-        asteroids = self.game.get_asteroids()
-        colided_list = []
+        """
+        Check if any of the torpedos have colided with any of the asteroids
+        This function works n^2 as it's iterates through all torpedos and for
+        each of them it checks if any of the asteroids are intersecting.
+        The function uses the external GameMaster#intersect to determine
+        if two objects are intersecting.
+
+        The function retunrs a list of colided pairs (torpedo, asteroid)
+        """
+
+        torpedos  = self.game.get_torpedos()  # Gather all torpedos
+        asteroids = self.game.get_asteroids() # Gather asteroids
+        colided_list = [] # Initialize the output
 
         for torpedo in torpedos:
             for asteroid in asteroids:
                 if self.game.intersect(torpedo, asteroid):
                     # Mark asteroid and torpedo to be removed
                     colided_list.append([torpedo, asteroid])
-
+        
+        # Return the list of colided pairs
         return colided_list
 
 
     def handle_collisons(self, colided_pairs):
+        """
+        Handle asteroid and torpedo colision. 
+        The function input is the colided list of pairs from the previous
+        method, and it iterates the objects and handle them seperately
+        adds ranking and split the asteroids if necassery
+        """
         
+        # Create a dictionary for the scoring table
+        # Based on the instructions, an asteroid has a size range of (1,3)
+        # Each has the according scoring points
         score_table = { 3:20, 2:50, 1:100 }
 
         for torpedo, asteroid in colided_pairs:
-            self.game.add_to_score(score_table[asteroid.size])
-
+            # Iterates through all the colided pairs of torpedo and asteroids
+            self.game.add_to_score(score_table[asteroid.size]) # add score 
+                                                               # based on the
+                                                               # asteroid size
             if asteroid.size > 1: 
+                # If the asteroid is larger than the smallest size (1):
                 # Generate new splitted asteroids
                 x_pos = asteroid.get_x_cor()
                 y_pos = asteroid.get_x_cor()
@@ -156,6 +225,12 @@ class GameRunner:
         
 
     def get_new_asteroids_speed(self, asteroid, torpedo):
+        """
+        A helper function to determine the new asteroids speed.
+        It is generated according to the colided asteroid and torpedo
+        data.
+        returns a tuple of x,y speed 
+        """
         ast_x = asteroid.get_speed_x()
         ast_y = asteroid.get_speed_y()
 
@@ -168,6 +243,10 @@ class GameRunner:
         return(new_speed_x, new_speed_y)
 
     def get_dead_torpedos(self):
+        """
+        Collect all the dead (life_capacity is 0) and return
+        a list of them.
+        """
         torpedos            = self.game.get_torpedos()
         dead_torpedos       = []
         life_capacity_limit = 0
@@ -180,11 +259,21 @@ class GameRunner:
 
 
     def remove_asteroids(self, asteroids):
+        """
+        Gets a list of N asteroids and remove each of them from the 
+        game.
+        """
         for asteroid in asteroids:
             self.game.remove_asteroid(asteroid)
 
 
     def ship_asteroid_collison(self):
+        """
+        Check if a ship has colided with an asteroid.
+        The function iterates through all asteroids and run the external
+        GameMaster#intersect function to determine if they hit each other.
+        If so, it returns the _first_ colided asteroid.
+        """
         ship = self.game.get_ship()
         asteroids = self.game.get_asteroids()
 
@@ -193,21 +282,25 @@ class GameRunner:
                 return asteroid
 
     def ship_collison_message(self):
+        """
+        Helper function to show ship and asteroid collison message 
+        to the end-user.
+        """
         title = "Collison!"
         message = "Your ship has colided with an asteroid. "
 
         self.game.show_message(title, message)
 
     def end_game_conditions(self):
-
+        """
+        The function checks if the game should be ended based on predefined
+        rules. If user pressed "q", no more asteroids or no more lives.
+        """
         asteroids_count = len(self.game.get_asteroids())
         lives_count     = self.game.get_num_lives()
 
         if self.game.should_end() or asteroids_count == 0 or lives_count == 0:
             self.game.end_game()
-
-
-
 
 def main():
     runner = GameRunner()
