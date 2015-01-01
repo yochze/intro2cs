@@ -5,7 +5,6 @@ class SuperTorpedo(BaseObject):
     RADIUS = 20
     TORPEDO_LIFESPAN = 100
 
-
     def __init__(self,canvas,x,y,dx,dy,direction):
         super().__init__(canvas,x,y,dx,dy,SUPER_TORPEDO_SHAPE,direction,SuperTorpedo.RADIUS)
         self.set_color("Gold")

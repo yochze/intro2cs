@@ -41,7 +41,7 @@ class GameRunner:
         self.move_ship()
         self.move_torpedos()
         self.shooting_torpedo()
-        self.add_super_torpedo()
+        self.add_super_torpedo() # New shape!
         pairs = self.check_collisions()
         asteroid_colided = self.ship_asteroid_collison()
 
@@ -293,10 +293,18 @@ class GameRunner:
         self.game.show_message(title, message)
 
     def add_super_torpedo(self):
-        torpedos_amount = len(self.game.get_super_torpedos())
-        torpedos_limit = 20 # Set the torpedos limit.
+        """
+        Add super torpedos if it didn't pass the super_torpedos limit (10)
+        inherit the position from the ship and assign it to the new
+        super_torpedo
 
-        if self.game.is_super_torpedo_pressed() and (torpedos_amount < torpedos_limit):
+        """
+        torpedos_amount = len(self.game.get_super_torpedos()) # Number of 
+                                                              # super torpedos
+        torpedos_limit = 10 # Set the torpedos limit.
+
+        if self.game.is_super_torpedo_pressed() and \
+                                (torpedos_amount < torpedos_limit):
             ship = self.game.get_ship() 
 
             # Collect position data for the new torpedo
@@ -311,8 +319,8 @@ class GameRunner:
             x_speed = ship.get_speed_x() + 2 * math.cos(deg_r)
             y_speed = ship.get_speed_y() + 2 * math.sin(deg_r)
 
-            # Call the external GameMaster#add_torpedo method to generate
-            # a new torpedo.
+            # Call the external GameMaster#add_super_torpedo method to generate
+            # a new super torpedo.
             self.game.add_super_torpedo(x_pos, y_pos, x_speed, y_speed, org_deg)
 
 
@@ -328,7 +336,7 @@ class GameRunner:
         ending = False
         
         if self.game.should_end():
-            #ending = True
+            ending = True
             message = "Too bad. Maybe come again later?"
         elif asteroids_count == 0:
             ending = True

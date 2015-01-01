@@ -7,7 +7,7 @@ import datetime
 
 from originalGame import *
 from torpedo import *
-from super_torpedo import *
+from super_torpedo import * # Include the new super_torpedo file
 from asteroid import *
 from spaceship import *
 
@@ -144,6 +144,7 @@ class GameMaster:
         self._fireClicks += 1
 
     def _handle_super_fire(self):
+        """ Increment superFire key (when pressed "return") """
         self._superFire += 1
 
     def get_num_lives(self):
@@ -228,12 +229,16 @@ class GameMaster:
         return self.torpedos
 
     def get_super_torpedos(self):
+        """ 
+        A simple getter to retrieve only the super_torpedos out of the 
+        torpedos list.
+        """
         super_torpedos = []
         for torpedo in self.torpedos:
-            if isinstance(torpedo, SuperTorpedo):
+            if isinstance(torpedo, SuperTorpedo): # torpedo is SuperTorpedo
                 super_torpedos.append(torpedo)
 
-        return super_torpedos
+        return super_torpedos # List of SuperTorpedo objects
 
     def remove_asteroid(self, asteroid):
         """
@@ -307,6 +312,11 @@ class GameMaster:
         self.torpedos.append(torpedo)
 
     def add_super_torpedo(self, x,y,xSpeed,ySpeed,angle):
+        """
+        Add a super torpedo to the game (after pressing the return key)
+        it instantiate a new SuperTorpedo with the approriate paramters
+        and append it to the self.torpedo list
+        """
         torpedo = SuperTorpedo(self._cv, x,y,xSpeed,ySpeed,angle)
         self.torpedos.append(torpedo)
 
@@ -389,7 +399,8 @@ class GameMaster:
 
     def is_super_torpedo_pressed(self):
         """
-        :returns: True if the fire key was pressed, else False
+        :returns: True if the supertorpedo ("enter") key was pressed,
+        else False
         """
         res = self._superFire > 0
         self._superFire -= 1 if res else 0

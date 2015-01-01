@@ -20,6 +20,33 @@ Exiting game occures when the end-user presses "q" key or loses all of his
 lives, or winning and destroying all asteroids. 
 
 
+Bonus (1):
+
+Add a SUPERTORPEDO !
+By pressing "Return" key the spaceship shoots a super torpedo
+Even though its life span is half of regular torpedo, it's much bigger
+and much more destructive!! :)
+
+To add the super torpedo I did the following:
+1. Added a super_torpedo.py file that contain the class SuperTorpedo
+The class, similarly to the Torpedo class inherirts from BaseObject
+and has same initialization method.
+also, like torpedo class, I added get_lifespan getter and move function.
+Some more unique attributes has also been set, like: color, lifespan.
+
+2. I extended objectShape to contain the SuperTorpedo new dimensions (it's 3 times
+bigger than the regular torpedo) and then the added the shape to the shapebase
+dictionary.
+
+3. I extended gameMaster and imported super_torpedo into it.
+I added binding support for the "return" key which calls the private
+"handle_super_fire" function.
+When the end-user clicks "return" key, a new SuperTorpedo is instantiated and
+being added to the torpedos list (along with the regular torpedo)
+that way, I can keep all the mechanism of regular torpedos also to cover the
+super torpedos. For example: limit, torpedos_count etc..
+
+
 =============================
 =  List of submitted files: =
 =============================
