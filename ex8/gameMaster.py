@@ -7,6 +7,7 @@ import datetime
 
 from originalGame import *
 from torpedo import *
+from super_torpedo import *
 from asteroid import *
 from spaceship import *
 
@@ -41,6 +42,7 @@ class GameMaster:
         self._leftClicks = 0
         self._rightClicks = 0
         self._fireClicks = 0
+        self._superFire = 0 # Super Torpedo
         self._astroidIndex = 0
         self._endGame = False
 
@@ -123,6 +125,8 @@ class GameMaster:
         self._originalGame.bind_key("Up", self._handle_up)
         self._originalGame.bind_key("space", self._handle_fire)
         self._originalGame.bind_key("q", self._handle_end)
+        # Super torpedo
+        self._originalGame.bind_key("Return", self._handle_super_fire)
 
     def _handle_end(self):
         self._endGame = True
@@ -138,6 +142,9 @@ class GameMaster:
 
     def _handle_fire(self):
         self._fireClicks += 1
+
+    def _handle_super_fire(self):
+        self._superFire += 1
 
     def get_num_lives(self):
         """
@@ -220,6 +227,14 @@ class GameMaster:
         """
         return self.torpedos
 
+    def get_super_torpedos(self):
+        super_torpedos = []
+        for torpedo in self.torpedos:
+            if isinstance(torpedo, SuperTorpedo):
+                super_torpedos.append(torpedo)
+
+        return super_torpedos
+
     def remove_asteroid(self, asteroid):
         """
         Removes the given asteroid from our asteroids list
@@ -289,6 +304,10 @@ class GameMaster:
         :type angle: int
         """
         torpedo = PhotonTorpedo(self._cv, x,y,xSpeed,ySpeed,angle)
+        self.torpedos.append(torpedo)
+
+    def add_super_torpedo(self, x,y,xSpeed,ySpeed,angle):
+        torpedo = SuperTorpedo(self._cv, x,y,xSpeed,ySpeed,angle)
         self.torpedos.append(torpedo)
 
     def add_asteroid(self,x,y,xSpeed,ySpeed,size):
@@ -366,6 +385,14 @@ class GameMaster:
         """
         res = self._fireClicks > 0
         self._fireClicks -= 1 if res else 0
+        return res
+
+    def is_super_torpedo_pressed(self):
+        """
+        :returns: True if the fire key was pressed, else False
+        """
+        res = self._superFire > 0
+        self._superFire -= 1 if res else 0
         return res
 
     def ontimer(self, func, milli):

@@ -1,6 +1,7 @@
 ASTEROID_BASE_SHAPE = "asteroid"
 SHIP_SHAPE = "ship"
 TORPEDO_SHAPE = "torpedo"
+SUPER_TORPEDO_SHAPE = "super_torpedo"
 
 class ShapesMaster:
     ASTEROIDS_TYPES = 3
@@ -18,6 +19,8 @@ class ShapesMaster:
     SHIP_LAYOUT = ((-10,-10),(0,-5),(10,-10),(0,10))
 
     TORPEDO_LAYOUT = ((-2,-4),(-2,4),(2,4),(2,-4))
+
+    SUPER_TORPEDO_LAYOUT = ((-8,-12),(-8,12),(8,12),(8,-12))
 
     def __init__(self, screen):
         """
@@ -42,6 +45,7 @@ class ShapesMaster:
 
         self.add_shape(SHIP_SHAPE, ShapesMaster.SHIP_LAYOUT)
         self.add_shape(TORPEDO_SHAPE, ShapesMaster.TORPEDO_LAYOUT)
+        self.add_shape(SUPER_TORPEDO_SHAPE, ShapesMaster.SUPER_TORPEDO_LAYOUT)
 
     def get_shapes_dict(self):
         """
