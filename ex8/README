@@ -20,7 +20,9 @@ Exiting game occures when the end-user presses "q" key or loses all of his
 lives, or winning and destroying all asteroids. 
 
 
-Bonus (1):
+============
+ Bonus (1):
+============
 
 Add a SUPERTORPEDO !
 By pressing "Return" key the spaceship shoots a super torpedo
@@ -47,6 +49,14 @@ that way, I can keep all the mechanism of regular torpedos also to cover the
 super torpedos. For example: limit, torpedos_count etc..
 
 4. Added the new shape to the gameMaster.py file and to the game flow.
+
+==============================
+ Experince of using the API:
+==============================
+
+It was a very good experience. The API is well documented and very 
+comprehensive. It contained everything I needed to know about the data models
+and helped me to easily implement the exercise.
 
 
 

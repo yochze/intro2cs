@@ -28,6 +28,8 @@ class GameMaster:
 
     " " -(space key) Fire a torpedo
 
+    "return" - Fire a super torpedo !!
+
     "q" - Quit the game
     """
     def __init__(self):
