@@ -55,7 +55,7 @@ class GameRunner:
         self.game.remove_torpedos(torpedos_to_remove)
 
         # Check if game should end
-
+        self.end_game_conditions()
 
 
     def move_object(self, shape):
@@ -104,7 +104,6 @@ class GameRunner:
         torpedos_limit = 20
 
         if self.game.is_fire_pressed() and (torpedos_amount < torpedos_limit):
-            print(torpedos_amount)
             ship = self.game.get_ship() 
             x_pos = ship.get_x_cor()
             y_pos = ship.get_y_cor()
@@ -198,6 +197,15 @@ class GameRunner:
         message = "Your ship has colided with an asteroid. "
 
         self.game.show_message(title, message)
+
+    def end_game_conditions(self):
+
+        asteroids_count = len(self.game.get_asteroids())
+        lives_count     = self.game.get_num_lives()
+
+        if self.game.should_end() or asteroids_count == 0 or lives_count == 0:
+            self.game.end_game()
+
 
 
 
