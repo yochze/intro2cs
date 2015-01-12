@@ -44,6 +44,12 @@ class WordExtractor(object):
     def read_line(self, n):
         """
         Reads the file and returns the n (input integer) line of the file
+        
+        Assuming (by the question data) that the line count is C (constant)
+        so the complexity of worst case scenario will be O(C) == O(1).
+        
+        The function uses the "with open.. as" context to easily release
+        resources.
         """
         i = 0 # Set index
 
