@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import random # Used to randomly select a pivot value for Quicksort
 
 class WordTracker(object):
     """
@@ -17,7 +17,10 @@ class WordTracker(object):
         Initiates a new WordTracker instance.
         :param word_list: The instance's dictionary.
         """
-        pass
+        self._word_list = word_list
+        self._sorted_list = word_list[:]
+        x = len(self._sorted_list) - 1
+        self.quicksort(0, x)
 
     def __contains__(self, word):
         """
@@ -63,3 +66,68 @@ class WordTracker(object):
         they were previously encountered ot not).
         """
         pass
+
+
+    def binary_search(self):
+        pass
+
+
+    def quicksort(self, low, high):
+
+        if low < high:
+            # Continue iterating until low == high which means
+            # partitions number reached its limit
+            pivot = self.partition(low, high)
+            self.quicksort(low, pivot -1)
+            self.quicksort(pivot + 1, high)
+
+
+    def partition(self, low, high):
+        mylist = self._sorted_list
+
+        pivot_id, pivot_val = self.choose_pivot(low,high) # Select pivot point
+        self.swap(pivot_id, high)
+        pivot_id = high
+
+        while low < high:
+            if mylist[low] < pivot_val:
+                low += 1
+            elif mylist[high] >= pivot_val:
+                high -= 1
+            else:
+                self.swap(low, high)
+                low += 1
+                high -= 1
+            
+        self.swap(pivot_id, low)
+
+        return low
+
+
+
+    def choose_pivot(self, low, high):
+        """ 
+        Using random python library to randomly select and return a pivot
+        value from the input list.    
+        """
+        pivot_id = random.randint(low, high-1)
+
+        return (pivot_id, self._sorted_list[pivot_id])
+
+    def swap(self, id1, id2):
+        """
+        Simple function to swap between values in a list based on their ids
+        """
+        mylist = self._sorted_list # Create a pointer, just for a shorter
+                                   # more elegant name
+
+        mylist[id1], mylist[id2] = mylist[id2], mylist[id1]
+
+
+
+nz = WordTracker(["hello", "helloworld", "hellojason", "hellojbson", "helloiason"])
+
+n = WordTracker([82,4,5,7,1,5,1,2,3,5,7,9])
+print(nz._sorted_list)
+print(n._sorted_list)
+#print("should be: ", nz._sorted_list.sort() )
