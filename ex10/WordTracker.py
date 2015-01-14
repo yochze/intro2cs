@@ -97,7 +97,9 @@ class WordTracker(object):
 
     def partition(self, low, high):
         """
-
+        This function reorder the array so the all low values compared
+        to pivot value will be in the left side of the pivot.
+        for higher values than pivot, it will be in right side. 
         """
         mylist = self._sorted_list
 
@@ -106,18 +108,23 @@ class WordTracker(object):
         pivot_id = high
 
         while low < high:
+            # As long the bounds of the array are >1
             if mylist[low] < pivot_val:
+                # the mylist[low] is located correctly, so increase lower bound
                 low += 1
             elif mylist[high] >= pivot_val:
+                # the mylist[high] is located correctly, so decrease high bound
                 high -= 1
             else:
+                # Otherwise, there's a mixup so a swap is required !
                 self.swap(low, high)
                 low += 1
                 high -= 1
-            
-        self.swap(pivot_id, low)
+        
+        # Finished partitioning, so swap between pivot_id and low bound
+        self.swap(pivot_id, low) 
 
-        return low
+        return low 
 
 
 
@@ -171,13 +178,13 @@ class WordTracker(object):
 
 
 
-nz = WordTracker(["hello", "helloworld", "hellojason", "hellojbson", "helloiason"])
+#nz = WordTracker(["hello", "helloworld", "hellojason", "hellojbson", "helloiason"])
 
-n = WordTracker([82,4,5,7,1,5,1,2,3,5,7,9])
-print(nz._sorted_list)
-print(n._sorted_list)
-print(nz.binary_search(nz._sorted_list, "hh", 0, len(nz._sorted_list)-1))
-print(nz.binary_search(nz._sorted_list, "hello",0, len(nz._sorted_list)-1))
-print(nz.__contains__("hellojason"))
-print(nz.__contains__("hasdfellojason"))
+#n = WordTracker([82,4,5,7,1,5,1,2,3,5,7,9])
+#print(nz._sorted_list)
+#print(n._sorted_list)
+#print(nz.binary_search(nz._sorted_list, "hh", 0, len(nz._sorted_list)-1))
+#print(nz.binary_search(nz._sorted_list, "hello",0, len(nz._sorted_list)-1))
+#print(nz.__contains__("hellojason"))
+#print(nz.__contains__("hasdfellojason"))
 #print("should be: ", nz._sorted_list.sort() )

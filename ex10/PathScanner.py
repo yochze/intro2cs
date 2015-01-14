@@ -1,10 +1,36 @@
+import os
+
 class PathIterator:
     """
     An iterator which iterates over all the directories and files
     in a given path (note - in the path only, not in the
     full depth). There is no importance to the order of iteration.
     """
-    pass
+
+    def __init__(self, path):
+        """
+        Initializer
+        """
+        self._path = path
+        self._items_list = os.listdir(self._path)
+
+        self._current_item = 0
+        self._items_size = len(self._items_list)
+
+    def __iter__(self):
+        """ 
+        """
+        return self
+
+    def __next__(self):
+        if self._current_item < self._items_size:
+
+            res = self._items_list[self._current_item]
+            self._current_item += 1
+        
+            return self._path + res
+        else:
+            raise StopIteration()
 
 
 def path_iterator(path):
