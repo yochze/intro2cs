@@ -17,10 +17,13 @@ class WordTracker(object):
         Initiates a new WordTracker instance.
         :param word_list: The instance's dictionary.
         """
-        self._word_list = word_list
-        self._sorted_list = word_list[:]
-        x = len(self._sorted_list) - 1
-        self.quicksort(0, x)
+        self._word_list         = word_list
+        self._sorted_list       = word_list[:]
+        self._encountered_words = self._sorted_list[:]
+
+        self._list_size = len(self._sorted_list)
+
+        self.quicksort(0, self._list_size-1)
 
     def __contains__(self, word):
         """
@@ -33,7 +36,7 @@ class WordTracker(object):
         :return: True if word is contained in the dictionary,
         False otherwise.
         """
-        pass
+        return self.binary_search(self._sorted_list, word, 0, self._list_size) 
 
     def encounter(self, word):
         """
@@ -44,7 +47,11 @@ class WordTracker(object):
         :return: True if the given word is contained in the dictionary,
         False otherwise.
         """
-        pass
+        if word in self._sorted_list and word not in self._encountered_words:
+            self._encountered_words.append(word)
+            return True
+        else:
+            return False
 
     def encountered_all(self):
         """
@@ -54,7 +61,10 @@ class WordTracker(object):
         the encounter function was called with this word;
         False otherwise.
         """
-        pass
+        if len(self._encountered_words) == self._list_size:
+            return True
+        else:
+            return False
 
     def reset(self):
         """
@@ -65,28 +75,34 @@ class WordTracker(object):
         called with the encounter function (regardless of whether
         they were previously encountered ot not).
         """
-        pass
-
-
-    def binary_search(self):
-        pass
-
+        self._encountered_words = []
 
     def quicksort(self, low, high):
+        """
+        An implementation of the quicksort algorithm.
+        It recursively split the list's items into pairs and sort them
+        then, it combines them into a single list
+        This algorithm worst-case complexity is O(nlogn)
+        """
 
         if low < high:
             # Continue iterating until low == high which means
             # partitions number reached its limit
+
             pivot = self.partition(low, high)
-            self.quicksort(low, pivot -1)
+
+            self.quicksort(low, pivot -1) # Recursively 
             self.quicksort(pivot + 1, high)
 
 
     def partition(self, low, high):
+        """
+
+        """
         mylist = self._sorted_list
 
         pivot_id, pivot_val = self.choose_pivot(low,high) # Select pivot point
-        self.swap(pivot_id, high)
+        self.swap(pivot_id, high) # Swap the pivod id with high val
         pivot_id = high
 
         while low < high:
@@ -109,6 +125,7 @@ class WordTracker(object):
         """ 
         Using random python library to randomly select and return a pivot
         value from the input list.    
+        Returns a tuple of the random value from the list and its index.
         """
         pivot_id = random.randint(low, high-1)
 
@@ -124,10 +141,43 @@ class WordTracker(object):
         mylist[id1], mylist[id2] = mylist[id2], mylist[id1]
 
 
+    def binary_search(self,sorted_list,term, left, right):
+        """
+        Implementation of binary search O(logn) to search the term in
+        self._sorted_list.
+        """
+        
+        if left > right:
+            # The left id has exceeded the right id so the term is not
+            # in the list, hence return False.
+            return False
+        center = (right + left) // 2 # Create the new updated center
+
+        if term > sorted_list[center]:
+            # Term is in the right side, recursively call the binary search
+            # with the modified list list[center:]
+            return self.binary_search(sorted_list, term, center+1, right)
+
+        elif term < sorted_list[center]:
+            # Term is in the left side, recursively call the binary search
+            # with the modified list list[center:]
+            return self.binary_search(sorted_list, term, left, center-1)
+
+        else:
+            # Found a match (term == sorted_list[center]), 
+            # Return true and end function
+            return True
+
+
+
 
 nz = WordTracker(["hello", "helloworld", "hellojason", "hellojbson", "helloiason"])
 
 n = WordTracker([82,4,5,7,1,5,1,2,3,5,7,9])
 print(nz._sorted_list)
 print(n._sorted_list)
+print(nz.binary_search(nz._sorted_list, "hh", 0, len(nz._sorted_list)-1))
+print(nz.binary_search(nz._sorted_list, "hello",0, len(nz._sorted_list)-1))
+print(nz.__contains__("hellojason"))
+print(nz.__contains__("hasdfellojason"))
 #print("should be: ", nz._sorted_list.sort() )

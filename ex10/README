@@ -1,0 +1,33 @@
+yochze
+201517018
+Yochay Ettun
+
+Readme for the tenth exercise in Intro2CS.
+
+Usage:
+
+==================
+=  Description:  =
+==================
+
+=====================
+=  Question  2.5.D  =
+=====================
+The assignment was to create a searching algorithm on a list in a complexity
+no bigger the n.
+To achieve this assignment I implemented a quicksort algorithm to sort a copy
+of the list (a new parameter in the class).
+Then, when having the sorted list, I could use the binary search algorithm
+to easily and fastly lookup a word/term in my duplicated sorted list.
+
+==================
+=  Question  6   =
+==================
+
+=============================
+=  List of submitted files: =
+=============================
+
+README         This file
+perceptron.py  The perceptron algorithm
+
