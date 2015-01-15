@@ -64,7 +64,7 @@ def print_tree(path, sep='  '):
     :param sep: A string separator which indicates the depth of
      current hierarchy.
     """
-    return print_tree_helper(path, sep, 0)
+    print_tree_helper(path, sep, 0)
 
 def print_tree_helper(path, sep, depth):
     for item in path_iterator(path): 
@@ -101,7 +101,7 @@ def file_with_all_words(path, word_list):
     words in word_list in the full depth of the given path, just one
     of theses should be returned (does not matter which).
     """
-    entities = PathIterator(path)._items_list
+    entities = path_iterator(path)._items_list
     
     return traverse_tree(path, entities, word_list, 0)
 
@@ -109,20 +109,25 @@ def file_with_all_words(path, word_list):
 
 
 def traverse_tree(path, entities, word_list, position):
+    """
+    Recursively traversing the tree in input: path
+    for each item in the iterator (pathiterator) it checks if it's a dir/file
+    if it's a dir, call the function recursively in a bigger depth.
+    Otherwise, check the file if it contains word_list
+    """
 
     if position < len(entities):
         new_path = path + '/' + entities[position]
 
         if os.path.isdir(new_path):
            
-            pp = PathIterator(new_path)
+            pp = path_iterator(new_path)
             traverse_tree(new_path, pp._items_list, word_list, 0)
 
         elif os.path.isfile(new_path):
 
             if check_file(word_list, new_path):
-                print(new_path)
-                return True
+                return new_path 
             else:
                 traverse_tree(path, entities, word_list, position + 1)
 
