@@ -1,6 +1,6 @@
 import os
-import WordExtractor # Import the external WordExtractor !
-import WordTracker   # Import the external WordTracker class 
+from WordExtractor import WordExtractor # Import the external WordExtractor !
+from WordTracker import WordTracker   # Import the external WordTracker class 
 
 class PathIterator:
     """
@@ -102,36 +102,56 @@ def file_with_all_words(path, word_list):
     words in word_list in the full depth of the given path, just one
     of theses should be returned (does not matter which).
     """
+    entities = PathIterator(path)._items_list
 
-    pp = PathIterator(path)
+    return traverse_tree(path, entities, word_list, 0)
+
+
+
+def traverse_tree(path, entities, word_list, position):
+
+    print(position)
+    print(len(entities))
+
+    if position < len(entities):
+        new_path = path + '/' + entities[position]
+
+        if os.path.isdir(new_path):
+           
+            # TEST 
+            print("TEST: dir")
+            print(new_path)
+
+            pp = PathIterator(new_path)
+            return traverse_tree(new_path, pp._items_list, word_list, 0)
+
+        elif os.path.isfile(new_path):
+
+            # TEST
+            print("TEST: file")
+            print(new_path)
+
+            if check_file(word_list, new_path):
+                return True
+            else:
+                return traverse_tree(path, entities, word_list, position + 1)
+
+    #else:
+
+        #print("GOT HERE 2") 
+        #return None
+
+
+def check_file(word_list, f):
+    we = WordExtractor(f)
+    for word in we:
+    # Using the efficient iterator from WordExtractor
+        wt = WordTracker(word_list)
+        if word in wt:
+            wt.encounter(word)
     
-    if pp._items_list:
-        pp._items_list.pop()
-        curr = pp._items_list[-1]
-        print(curr) 
-
-        if os.path.isdir(path + curr):
-            return file_with_all_words(path + curr, word_list)
-
-        elif os.path.isfile(path + curr):
-            # The entity is a file, read it and count encounters
-
-            for word in WordExtractor(path + curr):
-                # Using the efficient iterator from WordExtractor
-                wt = WordTracker(word_list)
-
-                if word in wt:
-                    wt.encounter(word)
-                    if wt.encountered_all:
-                        return path
-                else:
-                    wt.reset
-                    break
-
-            return find_with_all_words(path, word_list)
-
-        else:
-            return None
-
-    def traverse_tree():
-        pass
+    if wt.encountered_all():
+        return True
+    else:
+        wt.reset()
+        return False 

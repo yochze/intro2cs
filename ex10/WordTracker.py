@@ -19,7 +19,7 @@ class WordTracker(object):
         """
         self._word_list         = word_list
         self._sorted_list       = word_list[:]
-        self._encountered_words = self._sorted_list[:]
+        self._encountered_words = [] 
 
         self._list_size = len(self._sorted_list)
 
@@ -62,6 +62,8 @@ class WordTracker(object):
         False otherwise.
         """
         if len(self._encountered_words) == self._list_size:
+            print("TRUEEEEz")
+            #print(self._encountered_words()):
             return True
         else:
             return False
