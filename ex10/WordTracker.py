@@ -36,7 +36,7 @@ class WordTracker(object):
         :return: True if word is contained in the dictionary,
         False otherwise.
         """
-        return self.binary_search(self._sorted_list, word, 0, self._list_size) 
+        return self.binary_search(self._sorted_list,word,0,self._list_size-1) 
 
     def encounter(self, word):
         """

@@ -1,4 +1,6 @@
 import os
+import WordExtractor # Import the external WordExtractor !
+import WordTracker   # Import the external WordTracker class 
 
 class PathIterator:
     """
@@ -28,7 +30,7 @@ class PathIterator:
             res = self._items_list[self._current_item]
             self._current_item += 1
         
-            return self._path + res
+            return self._path + '/' + res
         else:
             raise StopIteration()
 
@@ -45,7 +47,7 @@ def path_iterator(path):
     :return: An iterator which returns all the files and directories
     in the *current* path (but not in the *full depth* of the path).
     """
-    pass
+    return PathIterator(path) 
 
 def print_tree(path, sep='  '):
     """
@@ -61,7 +63,25 @@ def print_tree(path, sep='  '):
     :param sep: A string separator which indicates the depth of
      current hierarchy.
     """
-    pass
+    iterations = len(os.listdir(path))
+
+    return print_tree_helper(path, sep, 0)
+
+def print_tree_helper(path, sep, depth):
+    for item in path_iterator(path): 
+        # For every file/dir in the mentioned path
+        title = os.path.basename(item) # Get the basename of the path
+                                       # i.e. the file/dir (foo/bar => bar)
+        if os.path.isdir(item):
+            # If the item is a directory, call the print_tree_helper again
+            # and print the directory title
+
+            print((depth)*sep + title)
+
+            print_tree_helper(item, sep, depth + 1) # Increase depth by 1
+        elif os.path.isfile(item):
+            # Item is a file, print its title with the depth*sep 
+            print((depth)*sep + title)
 
 def file_with_all_words(path, word_list):
     """
@@ -82,5 +102,36 @@ def file_with_all_words(path, word_list):
     words in word_list in the full depth of the given path, just one
     of theses should be returned (does not matter which).
     """
-    pass
 
+    pp = PathIterator(path)
+    
+    if pp._items_list:
+        pp._items_list.pop()
+        curr = pp._items_list[-1]
+        print(curr) 
+
+        if os.path.isdir(path + curr):
+            return file_with_all_words(path + curr, word_list)
+
+        elif os.path.isfile(path + curr):
+            # The entity is a file, read it and count encounters
+
+            for word in WordExtractor(path + curr):
+                # Using the efficient iterator from WordExtractor
+                wt = WordTracker(word_list)
+
+                if word in wt:
+                    wt.encounter(word)
+                    if wt.encountered_all:
+                        return path
+                else:
+                    wt.reset
+                    break
+
+            return find_with_all_words(path, word_list)
+
+        else:
+            return None
+
+    def traverse_tree():
+        pass
