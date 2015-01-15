@@ -117,18 +117,23 @@ def traverse_tree(path, entities, word_list, position):
     """
 
     if position < len(entities):
+        # Recursively go through the files until no more files in path
         new_path = path + '/' + entities[position]
 
         if os.path.isdir(new_path):
-           
+            # In case the current file is a directory
             pp = path_iterator(new_path)
             return traverse_tree(new_path, pp._items_list, word_list, 0)
 
         elif os.path.isfile(new_path):
+            # In case it's a file and not a directory, cross with word_list
+            # and return accordingly
 
             if check_file(word_list, new_path):
                 return new_path 
             else:
+                # Call the function again with position += 1 to go to next
+                # file in the path
                 return traverse_tree(path, entities, word_list, position + 1)
 
 def check_file(word_list, f):
@@ -140,7 +145,7 @@ def check_file(word_list, f):
         if word in wt:
             wt.encounter(word)
     
-    if wt.encountered_all():
-        return True
-    else:
-        wt.reset()
+    res = wt.encountered_all():
+    wt.reset()
+
+    return res
