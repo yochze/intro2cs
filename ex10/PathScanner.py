@@ -29,10 +29,11 @@ class PathIterator:
 
             res = self._items_list[self._current_item]
             self._current_item += 1
-        
+
             return self._path + '/' + res
+
         else:
-            raise StopIteration()
+            raise StopIteration
 
 
 def path_iterator(path):
@@ -63,8 +64,6 @@ def print_tree(path, sep='  '):
     :param sep: A string separator which indicates the depth of
      current hierarchy.
     """
-    iterations = len(os.listdir(path))
-
     return print_tree_helper(path, sep, 0)
 
 def print_tree_helper(path, sep, depth):
@@ -103,50 +102,36 @@ def file_with_all_words(path, word_list):
     of theses should be returned (does not matter which).
     """
     entities = PathIterator(path)._items_list
-
+    
     return traverse_tree(path, entities, word_list, 0)
 
 
 
-def traverse_tree(path, entities, word_list, position):
 
-    print(position)
-    print(len(entities))
+def traverse_tree(path, entities, word_list, position):
 
     if position < len(entities):
         new_path = path + '/' + entities[position]
 
         if os.path.isdir(new_path):
            
-            # TEST 
-            print("TEST: dir")
-            print(new_path)
-
             pp = PathIterator(new_path)
-            return traverse_tree(new_path, pp._items_list, word_list, 0)
+            traverse_tree(new_path, pp._items_list, word_list, 0)
 
         elif os.path.isfile(new_path):
 
-            # TEST
-            print("TEST: file")
-            print(new_path)
-
             if check_file(word_list, new_path):
+                print(new_path)
                 return True
             else:
-                return traverse_tree(path, entities, word_list, position + 1)
-
-    #else:
-
-        #print("GOT HERE 2") 
-        #return None
-
+                traverse_tree(path, entities, word_list, position + 1)
 
 def check_file(word_list, f):
     we = WordExtractor(f)
+    wt = WordTracker(word_list)
+
     for word in we:
     # Using the efficient iterator from WordExtractor
-        wt = WordTracker(word_list)
         if word in wt:
             wt.encounter(word)
     
@@ -154,4 +139,3 @@ def check_file(word_list, f):
         return True
     else:
         wt.reset()
-        return False 
