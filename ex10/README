@@ -61,5 +61,4 @@ So it's O(1) (Assignment is constant).
 =============================
 
 README         This file
-perceptron.py  The perceptron algorithm
 

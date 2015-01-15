@@ -122,14 +122,14 @@ def traverse_tree(path, entities, word_list, position):
         if os.path.isdir(new_path):
            
             pp = path_iterator(new_path)
-            traverse_tree(new_path, pp._items_list, word_list, 0)
+            return traverse_tree(new_path, pp._items_list, word_list, 0)
 
         elif os.path.isfile(new_path):
 
             if check_file(word_list, new_path):
                 return new_path 
             else:
-                traverse_tree(path, entities, word_list, position + 1)
+                return traverse_tree(path, entities, word_list, position + 1)
 
 def check_file(word_list, f):
     we = WordExtractor(f)
