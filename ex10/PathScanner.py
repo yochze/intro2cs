@@ -152,6 +152,7 @@ def traverse_tree(path, entities, word_list, position):
 def check_file(word_list, f):
     we = WordExtractor(f)
     wt = WordTracker(word_list)
+    wt.reset()
 
     for word in we:
     # Using the efficient iterator from WordExtractor
@@ -159,6 +160,5 @@ def check_file(word_list, f):
             wt.encounter(word)
     
     res = wt.encountered_all()
-    wt.reset()
 
     return res

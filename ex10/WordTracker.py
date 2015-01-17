@@ -66,8 +66,11 @@ class WordTracker(object):
         False otherwise.
         """
         if len(self._encountered_words) == self._list_size:
+
+            self.reset()
             return True
         else:
+            self.reset()
             return False
 
     def reset(self):
