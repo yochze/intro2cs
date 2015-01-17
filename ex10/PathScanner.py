@@ -110,43 +110,56 @@ def file_with_all_words(path, word_list):
     words in word_list in the full depth of the given path, just one
     of theses should be returned (does not matter which).
     """
-    entities = path_iterator(path).items_list()
+    #entities = path_iterator(path).items_list()
     
+            #traverse_tree(new_path, pp.items_list(), word_list, 0)
     #x = 
-    return traverse_tree(path, entities, word_list, 0)
+    return traverse_tree(path, word_list)
 
-def traverse_tree(path, entities, word_list, position):
-    """
-    Recursively traversing the tree in input: path
-    for each item in the iterator (pathiterator) it checks if it's a dir/file
-    if it's a dir, call the function recursively in a bigger depth.
-    Otherwise, check the file if it contains word_list
-    """
+def traverse_tree(path, word_list):
+    for item in path_iterator(path):
+        if os.path.isdir(item):
+           traverse_tree(item, word_list)
 
-    if position < len(entities):
-    #`for entity in entities:
-        # Recursively go through the files until no more files in path
-        new_path = os.path.join(path, entities[position])
+        elif os.path.isfile(item):
+            # Item is a file, print its title with the depth*sep 
+            if check_file(word_list, item):
+                return (item)
+
+    return None
+
+#def traverse_tree(path, entities, word_list, position):
+    ##"""
+    ##Recursively traversing the tree in input: path
+    ##for each item in the iterator (pathiterator) it checks if it's a dir/file
+    ##if it's a dir, call the function recursively in a bigger depth.
+    ##Otherwise, check the file if it contains word_list
+    ##"""
+
+    #if position < len(entities):
+    ##`for entity in entities:
+        ### Recursively go through the files until no more files in path
+        #new_path = os.path.join(path, entities[position])
         
         #print(new_path)
 
-        if os.path.isdir(new_path):
-            # In case the current file is a directory
-            pp = path_iterator(new_path)
-            return traverse_tree(new_path, pp.items_list(), word_list, 0)
+        #if os.path.isdir(new_path):
+            ## In case the current file is a directory
+            #pp = path_iterator(new_path)
+            #return traverse_tree(new_path, pp.items_list(), word_list, 0)
 
-        elif os.path.isfile(new_path):
-            # In case it's a file and not a directory, cross with word_list
-            # and return accordingly
+        #elif os.path.isfile(new_path):
+            ## In case it's a file and not a directory, cross with word_list
+            ## and return accordingly
 
             #print(new_path)
-            if check_file(word_list, new_path):
-                return new_path 
+            ##if check_file(word_list, new_path):
+                ##return new_path 
 
-            else:
-                # Call the function again with position += 1 to go to next
-                # file in the path
-                return traverse_tree(path, entities, word_list, position + 1)
+            ##else:
+                ## Call the function again with position += 1 to go to next
+                ## file in the path
+            #traverse_tree(path, entities, word_list, position + 1)
 
 
 def check_file(word_list, f):
@@ -162,3 +175,9 @@ def check_file(word_list, f):
     res = wt.encountered_all()
 
     return res
+
+
+#print("TEST")
+#print_tree("AA")
+
+#print(file_with_all_words("AA", ["1", "2"]))
