@@ -112,13 +112,8 @@ def file_with_all_words(path, word_list):
     """
     entities = path_iterator(path).items_list()
     
-    x = traverse_tree(path, entities, word_list, 0)
-
-    print(x)
-    return x
-
-
-
+    #x = 
+    return traverse_tree(path, entities, word_list, 0)
 
 def traverse_tree(path, entities, word_list, position):
     """
