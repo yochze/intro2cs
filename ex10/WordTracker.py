@@ -83,47 +83,40 @@ class WordTracker(object):
 
 
 
-    def partition(self, list, start, end):
-        pivot = list[end]                       # Partition around the last value
-        bottom = start-1                        # Start outside the area to be partitioned
-        top = end                               # Ditto
+    def partition(self, mylist, start, end):
+        """ 
+        Partition implementation as part of the full quicksort implementation
+        """
+        pivot = random.randint(start, end)   # Select a pivot idx randomly
+        self.swap_helper(mylist, pivot, end) # trigger swap on pivot and end
 
-        done = 0
-        while not done:                         # Until all elements are partitioned...
+        for i in range(start, end):
+            # For each item in start,pivot (new end) do
+            if mylist[i] <= mylist[end]:
+                # re order element if it's smaller the end
+                self.swap_helper(mylist, i, start)
+                start += 1 # Increment start to smaller the range
 
-            while not done:                     # Until we find an out of place element...
-                bottom = bottom+1               # ... move the bottom up.
+        self.swap_helper(mylist, start, end) # Swap last elements
 
-                if bottom == top:               # If we hit the top...
-                    done = 1                    # ... we are done.
-                    break
-
-                if list[bottom] > pivot:        # Is the bottom out of place?
-                    list[top] = list[bottom]    # Then put it at the top...
-                    break                       # ... and start searching from the top.
-
-            while not done:                     # Until we find an out of place element...
-                top = top-1                     # ... move the top down.
-                
-                if top == bottom:               # If we hit the bottom...
-                    done = 1                    # ... we are done.
-                    break
-
-                if list[top] < pivot:           # Is the top out of place?
-                    list[bottom] = list[top]    # Then put it at the bottom...
-                    break                       # ...and start searching from the bottom.
-
-        list[top] = pivot                       # Put the pivot in its place.
-        return top                              # Return the split point
+        return start 
+        
 
 
-    def quicksort(self, list, start, end):
-        if start < end:                         # If there are two or more elements...
-            split = self.partition(list, start, end) # ... partition the sublist...
-            self.quicksort(list, start, split-1)     # ... and sort both halves.
-            self.quicksort(list, split+1, end)
-        else:
-            return
+    def quicksort(self, mylist, start, end):
+        """
+        The main function of quicksort. It works O(nlogn) in an average case
+        and O(n^2) in worst case (which is rare !).
+        """
+        if start < end:                       
+            # As long there are >2 items 
+            pivot = self.partition(mylist,start,end) # Select a pivot point
+            self.quicksort(mylist, start, pivot-1)   # Trigger on left range
+            self.quicksort(mylist, pivot+1, end)     # Trigger on right range
+
+
+    def swap_helper(self, mylist, x, y):
+        mylist[x], mylist[y] = mylist[y], mylist[x]
 
     def binary_search(self, sorted_list, term, left, right):
         """

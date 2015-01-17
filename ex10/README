@@ -4,11 +4,20 @@ Yochay Ettun
 
 Readme for the tenth exercise in Intro2CS.
 
-Usage:
-
 ==================
 =  Description:  =
 ==================
+This exercise goal was to develop a OOP program that given a list of words and
+a path, it efficiently search for those words in every file and directory
+in the path (recursively) and returns results accordingly.
+
+This excercise required an implementation of several class modules and unders-
+standing of OOP principals.
+
+In addition, I implemented a sorting algorithm (Quicksort) and a string
+matching algorithm (Binary Search). The decision to use these algorithms 
+spefically was due the request of building an efficient (complexity-wise) 
+solution to those problems.
 
 =====================
 =  Question  2.5.D  =
@@ -52,13 +61,11 @@ This function simply assigns the empty ist to the object's _encountered_words
 attribute.
 So it's O(1) (Assignment is constant).
 
-==================
-=  Question  6   =
-==================
-
 =============================
 =  List of submitted files: =
 =============================
 
-README         This file
-
+README              This file
+PathScanner.py      Implementation of the path traversing and scanning.
+WordExtractor.py    Efficient way of extracting words from files.
+WordTracker.py      Searching and comparing strings (words) in lists
