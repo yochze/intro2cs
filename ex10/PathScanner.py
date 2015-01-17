@@ -21,18 +21,30 @@ class PathIterator:
 
     def __iter__(self):
         """ 
+        The __iter__ function that handles interation process of the 
+        current object.
+        returns the iterator.
         """
         return self
 
     def __next__(self):
-        if self._current_item < self._items_size:
+        """
+        This function is part of the iteration functionality of the object
+        it decides how to iterate the object and which is the next entity
+        in the iteration.
 
+        """
+        if self._current_item < self._items_size:
+            # As long as it didn't pass the item_size in the directory
+            # it returns the current_item set by class and increment it
+            # for next iteration.
             res = self._items_list[self._current_item]
             self._current_item += 1
 
-            return self._path + '/' + res
+            return os.path.join(self._path, res) # Return the path
 
         else:
+            # End of files
             raise StopIteration
 
 
@@ -76,6 +88,14 @@ def print_tree(path, sep='  '):
     print_tree_helper(path, sep, 0)
 
 def print_tree_helper(path, sep, depth):
+    """
+    recursive function to print the tree of the given path with a "graphical"
+    addon of seperation.
+    It iterates the path_iterator iterator that we built and for each file
+    in the iterator, it prints it with the amount of sep needed, depends
+    on the depth of the iteration.
+    The function returns nothing, but prints recursively the items.
+    """
     for item in path_iterator(path): 
         # For every file/dir in the mentioned path
         title = os.path.basename(item) # Get the basename of the path
@@ -110,74 +130,46 @@ def file_with_all_words(path, word_list):
     words in word_list in the full depth of the given path, just one
     of theses should be returned (does not matter which).
     """
-    #entities = path_iterator(path).items_list()
-    
-            #traverse_tree(new_path, pp.items_list(), word_list, 0)
-    #x = 
     return traverse_tree(path, word_list)
 
 def traverse_tree(path, word_list):
+    """
+    A function to traverse the directory tree of the given path input.
+    It uses the path_iterator function we build to easily go through
+    each file and directory.
+    If it's a directory, call traverse_tree recursively.
+    If it's a file, compare word lists and return the path if it's a match.
+    Otherwise, return None
+    """
     for item in path_iterator(path):
+        # For each entity / item in the directory path.
         if os.path.isdir(item):
-           traverse_tree(item, word_list)
+            # if it's a directory, call this function again in the new path
+            traverse_tree(item, word_list)
 
         elif os.path.isfile(item):
-            # Item is a file, print its title with the depth*sep 
+            # It's a file, check for word_list
             if check_file(word_list, item):
+                # Passed matching ! return the item path
                 return (item)
 
-    return None
-
-#def traverse_tree(path, entities, word_list, position):
-    ##"""
-    ##Recursively traversing the tree in input: path
-    ##for each item in the iterator (pathiterator) it checks if it's a dir/file
-    ##if it's a dir, call the function recursively in a bigger depth.
-    ##Otherwise, check the file if it contains word_list
-    ##"""
-
-    #if position < len(entities):
-    ##`for entity in entities:
-        ### Recursively go through the files until no more files in path
-        #new_path = os.path.join(path, entities[position])
-        
-        #print(new_path)
-
-        #if os.path.isdir(new_path):
-            ## In case the current file is a directory
-            #pp = path_iterator(new_path)
-            #return traverse_tree(new_path, pp.items_list(), word_list, 0)
-
-        #elif os.path.isfile(new_path):
-            ## In case it's a file and not a directory, cross with word_list
-            ## and return accordingly
-
-            #print(new_path)
-            ##if check_file(word_list, new_path):
-                ##return new_path 
-
-            ##else:
-                ## Call the function again with position += 1 to go to next
-                ## file in the path
-            #traverse_tree(path, entities, word_list, position + 1)
-
+    return None # Return None if no results
 
 def check_file(word_list, f):
-    we = WordExtractor(f)
-    wt = WordTracker(word_list)
-    wt.reset()
+    """
+    Test file for matching word_list. It is a function that uses iter
+    of WordExtractor to go through on each word in the file efficiently
+    and it compares the word with WordTracker.__contain__ .
+    """
+    we = WordExtractor(f) # Create the WordExtractor object
+    wt = WordTracker(word_list) # Create WT object
+    wt.reset() # Reset the wt instance 
 
     for word in we:
     # Using the efficient iterator from WordExtractor
         if word in wt:
+            # The word appears in dictionary, append it to the encounter
+            # list.
             wt.encounter(word)
     
-    res = wt.encountered_all()
-
-    return res
-
-
-#print("TEST")
-#print_tree("AA")
-
-#print(file_with_all_words("AA", ["1", "2"]))
+    return wt.encountered_all() # Returns true/false accordingly

@@ -103,10 +103,3 @@ class WordExtractor(object):
             # Reached 1 line bigger than lines size, so EOF and stop
             # iterating.
             raise StopIteration()
-
-## Test
-#f = WordExtractor('text_file.txt')
-#i = 0
-#for w in f:
-    #print(i, w)
-#print(f._lines)
