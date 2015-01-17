@@ -17,7 +17,7 @@
 import unittest
 
 testmodules = [
-    #'test.path_scanner_test',
+    'test.path_scanner_test',
     'test.word_extractor_test',
     'test.word_tracker_test',
 ]

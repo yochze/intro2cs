@@ -145,6 +145,8 @@ def traverse_tree(path, entities, word_list, position):
                 # file in the path
                 return traverse_tree(path, entities, word_list, position + 1)
 
+        return None
+
 def check_file(word_list, f):
     we = WordExtractor(f)
     wt = WordTracker(word_list)
