@@ -39,9 +39,9 @@ class PathIterator:
     # Set some getters 
 
     def items_list(self):
-        return self._items_list
-
-    def items_size(self):
+        """
+        Getter function for the _items_list attribute
+        """
         return self._items_list
 
 
@@ -110,7 +110,7 @@ def file_with_all_words(path, word_list):
     words in word_list in the full depth of the given path, just one
     of theses should be returned (does not matter which).
     """
-    entities = path_iterator(path).items_list
+    entities = path_iterator(path).items_list()
     
     return traverse_tree(path, entities, word_list, 0)
 
@@ -132,7 +132,7 @@ def traverse_tree(path, entities, word_list, position):
         if os.path.isdir(new_path):
             # In case the current file is a directory
             pp = path_iterator(new_path)
-            return traverse_tree(new_path, pp.items_list, word_list, 0)
+            return traverse_tree(new_path, pp.items_list(), word_list, 0)
 
         elif os.path.isfile(new_path):
             # In case it's a file and not a directory, cross with word_list
@@ -154,7 +154,7 @@ def check_file(word_list, f):
         if word in wt:
             wt.encounter(word)
     
-    res = wt.encountered_all():
+    res = wt.encountered_all()
     wt.reset()
 
     return res
