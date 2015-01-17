@@ -95,7 +95,7 @@ class WordExtractor(object):
                 self._current_line += 1
 
                 return self.__next__()
-            
+
             return words[self._current_word_idx-1]
 
 
@@ -104,8 +104,9 @@ class WordExtractor(object):
             # iterating.
             raise StopIteration()
 
-# Test
-#f = WordExtractor('testfile.txt')
+## Test
+#f = WordExtractor('text_file.txt')
 #i = 0
 #for w in f:
     #print(i, w)
+#print(f._lines)
