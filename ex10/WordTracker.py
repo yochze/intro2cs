@@ -23,7 +23,10 @@ class WordTracker(object):
 
         self._list_size = len(self._sorted_list)
 
-        self.quicksort(0, self._list_size-1)
+        self.quicksort(self._sorted_list, 0, self._list_size-1)
+
+    def sorted_list(self):
+        return self._sorted_list
 
     def __contains__(self, word):
         """
@@ -78,103 +81,146 @@ class WordTracker(object):
         """
         self._encountered_words = []
 
-    def quicksort(self, low, high):
-        """
-        An implementation of the quicksort algorithm.
-        It recursively split the list's items into pairs and sort them
-        then, it combines them into a single list
-        This algorithm worst-case complexity is O(nlogn)
-        """
-
-        if low < high:
-            # Continue iterating until low == high which means
-            # partitions number reached its limit
-
-            pivot = self.partition(low, high)
-
-            self.quicksort(low, pivot -1) # Recursively 
-            self.quicksort(pivot + 1, high)
 
 
-    def partition(self, low, high):
-        """
-        This function reorder the array so the all low values compared
-        to pivot value will be in the left side of the pivot.
-        for higher values than pivot, it will be in right side. 
-        """
-        mylist = self._sorted_list
+    def partition(self, list, start, end):
+        pivot = list[end]                       # Partition around the last value
+        bottom = start-1                        # Start outside the area to be partitioned
+        top = end                               # Ditto
 
-        pivot_id, pivot_val = self.choose_pivot(low,high) # Select pivot point
-        self.swap(pivot_id, high) # Swap the pivod id with high val
-        pivot_id = high
+        done = 0
+        while not done:                         # Until all elements are partitioned...
 
-        while low < high:
-            # As long the bounds of the array are >1
-            if mylist[low] < pivot_val:
-                # the mylist[low] is located correctly, so increase lower bound
-                low += 1
-            elif mylist[high] >= pivot_val:
-                # the mylist[high] is located correctly, so decrease high bound
-                high -= 1
-            else:
-                # Otherwise, there's a mixup so a swap is required !
-                self.swap(low, high)
-                low += 1
-                high -= 1
+            while not done:                     # Until we find an out of place element...
+                bottom = bottom+1               # ... move the bottom up.
+
+                if bottom == top:               # If we hit the top...
+                    done = 1                    # ... we are done.
+                    break
+
+                if list[bottom] > pivot:        # Is the bottom out of place?
+                    list[top] = list[bottom]    # Then put it at the top...
+                    break                       # ... and start searching from the top.
+
+            while not done:                     # Until we find an out of place element...
+                top = top-1                     # ... move the top down.
+                
+                if top == bottom:               # If we hit the bottom...
+                    done = 1                    # ... we are done.
+                    break
+
+                if list[top] < pivot:           # Is the top out of place?
+                    list[bottom] = list[top]    # Then put it at the bottom...
+                    break                       # ...and start searching from the bottom.
+
+        list[top] = pivot                       # Put the pivot in its place.
+        return top                              # Return the split point
+
+
+    def quicksort(self, list, start, end):
+        if start < end:                         # If there are two or more elements...
+            split = self.partition(list, start, end) # ... partition the sublist...
+            self.quicksort(list, start, split-1)     # ... and sort both halves.
+            self.quicksort(list, split+1, end)
+        else:
+            return
+
+  #  def quicksort(self, low, high):
+        #"""
+        #An implementation of the quicksort algorithm.
+        #It recursively split the list's items into pairs and sort them
+        #then, it combines them into a single list
+        #This algorithm worst-case complexity is O(nlogn)
+        #"""
+
+        #if low < high:
+            ## Continue iterating until low == high which means
+            ## partitions number reached its limit
+
+            #pivot = self.partition(low, high)
+
+            #self.quicksort(low, pivot -1) # Recursively 
+            #self.quicksort(pivot + 1, high)
+
+
+    #def partition(self, low, high):
+        #"""
+        #This function reorder the array so the all low values compared
+        #to pivot value will be in the left side of the pivot.
+        #for higher values than pivot, it will be in right side. 
+        #"""
+        #mylist = self._sorted_list
+
+        #pivot_id, pivot_val = self.choose_pivot(low,high) # Select pivot point
+        #self.swap(pivot_id, high) # Swap the pivod id with high val
+        #pivot_id = high
+
+        #while low < high:
+            ## As long the bounds of the array are >1
+            #if mylist[low] < pivot_val:
+                ## the mylist[low] is located correctly, so increase lower bound
+                #low += 1
+            #elif mylist[high] >= pivot_val:
+                ## the mylist[high] is located correctly, so decrease high bound
+                #high -= 1
+            #else:
+                ## Otherwise, there's a mixup so a swap is required !
+                #self.swap(low, high)
+                #low += 1
+                #high -= 1
         
-        # Finished partitioning, so swap between pivot_id and low bound
-        self.swap(pivot_id, low) 
+        ## Finished partitioning, so swap between pivot_id and low bound
+        #self.swap(pivot_id, low) 
 
-        return low 
+        #return low 
 
+    #def choose_pivot(self, low, high):
+        #""" 
+        #Using random python library to randomly select and return a pivot
+        #value from the input list.    
+        #Returns a tuple of the random value from the list and its index.
+        #"""
+        #pivot_id = random.randint(low, high-1)
 
+        #return (pivot_id, self._sorted_list[pivot_id])
 
-    def choose_pivot(self, low, high):
-        """ 
-        Using random python library to randomly select and return a pivot
-        value from the input list.    
-        Returns a tuple of the random value from the list and its index.
-        """
-        pivot_id = random.randint(low, high-1)
+    #def swap(self, id1, id2):
+        #"""
+        #Simple function to swap between values in a list based on their ids
+        #"""
+        #mylist = self._sorted_list # Create a pointer, just for a shorter
+                                   ## more elegant name
 
-        return (pivot_id, self._sorted_list[pivot_id])
-
-    def swap(self, id1, id2):
-        """
-        Simple function to swap between values in a list based on their ids
-        """
-        mylist = self._sorted_list # Create a pointer, just for a shorter
-                                   # more elegant name
-
-        mylist[id1], mylist[id2] = mylist[id2], mylist[id1]
+        #mylist[id1], mylist[id2] = mylist[id2], mylist[id1]
 
 
-    def binary_search(self,sorted_list,term, left, right):
+    def binary_search(self, sorted_list, term, left, right):
         """
         Implementation of binary search O(logn) to search the term in
         self._sorted_list.
         """
         
         if left > right:
-            # The left id has exceeded the right id so the term is not
-            # in the list, hence return False.
-            return False
+          # The left id has exceeded the right id so the term is not
+          # in the list, hence return False.
+          return False
+
         center = (right + left) // 2 # Create the new updated center
 
         if term > sorted_list[center]:
-            # Term is in the right side, recursively call the binary search
-            # with the modified list list[center:]
-            return self.binary_search(sorted_list, term, center+1, right)
+          # Term is in the right side, recursively call the binary search
+          # with the modified list list[center:]
+          return self.binary_search(sorted_list, term, center+1, right)
 
         elif term < sorted_list[center]:
-            # Term is in the left side, recursively call the binary search
-            # with the modified list list[center:]
-            return self.binary_search(sorted_list, term, left, center-1)
+          # Term is in the left side, recursively call the binary search
+          # with the modified list list[center:]
+          return self.binary_search(sorted_list, term, left, center-1)
 
         else:
-            # Found a match (term == sorted_list[center]), 
-            # Return true and end function
-            return True
+           # Found a match (term == sorted_list[center]), 
+           # Return true and end function
+           return True
 
 
 

@@ -112,7 +112,10 @@ def file_with_all_words(path, word_list):
     """
     entities = path_iterator(path).items_list()
     
-    return traverse_tree(path, entities, word_list, 0)
+    x = traverse_tree(path, entities, word_list, 0)
+
+    print(x)
+    return x
 
 
 
@@ -126,8 +129,11 @@ def traverse_tree(path, entities, word_list, position):
     """
 
     if position < len(entities):
+    #`for entity in entities:
         # Recursively go through the files until no more files in path
-        new_path = path + '/' + entities[position]
+        new_path = os.path.join(path, entities[position])
+        
+        #print(new_path)
 
         if os.path.isdir(new_path):
             # In case the current file is a directory
@@ -138,14 +144,15 @@ def traverse_tree(path, entities, word_list, position):
             # In case it's a file and not a directory, cross with word_list
             # and return accordingly
 
+            #print(new_path)
             if check_file(word_list, new_path):
                 return new_path 
+
             else:
                 # Call the function again with position += 1 to go to next
                 # file in the path
                 return traverse_tree(path, entities, word_list, position + 1)
 
-        return None
 
 def check_file(word_list, f):
     we = WordExtractor(f)
