@@ -145,7 +145,7 @@ def traverse_tree(path, word_list):
         # For each entity / item in the directory path.
         if os.path.isdir(item):
             # if it's a directory, call this function again in the new path
-            traverse_tree(item, word_list)
+            return traverse_tree(item, word_list)
 
         elif os.path.isfile(item):
             # It's a file, check for word_list
