@@ -47,8 +47,9 @@ class WordTracker(object):
         :return: True if the given word is contained in the dictionary,
         False otherwise.
         """
-        if word in self._sorted_list and word not in self._encountered_words:
-            self._encountered_words.append(word)
+        if word in self._sorted_list:
+            if word not in self._encountered_words:
+                self._encountered_words.append(word)
             return True
         else:
             return False
